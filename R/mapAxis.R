@@ -5,6 +5,7 @@ mapAxis = function(basemap,
                    lons,
                    lats,
                    label.sides = c(1:4),
+                   col = '#00000030',
                    ...) {
   
   
@@ -29,7 +30,7 @@ mapAxis = function(basemap,
       tmp = tmp[k,]
   
       ## Add lon lines
-      lines(x = tmp$x, y = tmp$y, ...)
+      lines(x = tmp$x, y = tmp$y, col = col, ...)
       
       ## Attempt to Label?
       s = 'E'
@@ -55,7 +56,7 @@ mapAxis = function(basemap,
       tmp = tmp[k,]
   
       ## Add lon lines
-      lines(x = tmp$x, y= tmp$y, ...)
+      lines(x = tmp$x, y= tmp$y, col = col, ...)
       
       ## Attempt to Label?
       s = 'N'
