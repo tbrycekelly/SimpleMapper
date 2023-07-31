@@ -1,7 +1,7 @@
 
 #' @title Add Coastline to basemap
 #' @author Thomas Bryce Kelly
-#' @description Adds a coastline list to a map given a projection and land color.
+#' @description Adds a coastline list to a map
 #' @export
 addCoastline = function(basemap, coastline, land.col) {
   
@@ -48,5 +48,5 @@ addCoastline = function(basemap, coastline, land.col) {
     polygon(projected.coast[[i]]$x, projected.coast[[i]]$y, col = land.col)
   }
   
-  invisible()
+  basemap
 }

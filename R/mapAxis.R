@@ -72,5 +72,5 @@ mapAxis = function(basemap,
   }
   par(las = 0)
   
-  invisible()
+  basemap
 }

@@ -7,7 +7,7 @@
 addCoastline(basemap, coastline, land.col)
 }
 \description{
-Adds a coastline list to a map given a projection and land color.
+Adds a coastline list to a map
 }
 \author{
 Thomas Bryce Kelly

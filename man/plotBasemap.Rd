@@ -11,6 +11,7 @@ plotBasemap(
   scale = 1000,
   projection = NULL,
   land.col = "lightgray",
+  frame = T,
   verbose = T
 )
 }

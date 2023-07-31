@@ -22,4 +22,6 @@ mapLine = function(basemap,
   
   ## Plot
   lines(tmp$x, tmp$y, col = col, lty = lty, lwd = lwd, ...)
+  
+  basemap
 }
