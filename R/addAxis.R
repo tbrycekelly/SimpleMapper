@@ -1,7 +1,7 @@
 #' @title Add Axis to Map
 #' @author Thomas Bryce Kelly
 #' @export
-mapAxis = function(basemap,
+addAxis = function(basemap,
                    lons,
                    lats,
                    label.sides = c(1:4),

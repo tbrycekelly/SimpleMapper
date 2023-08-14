@@ -12,7 +12,7 @@ projectionMercator = function(lon, lat, lon0 = 0, lat0 = 0, inv = F) {
   }
   
   
-  lon = (lon - lon0 + 180) %% 360 - 180
+  #lon = (lon - lon0 + 180) %% 360 - 180
   lon = (lon / 180 * pi)
   lat = (lat - lat0) / 180 * pi
   lon0 = lon0 / 180 * pi

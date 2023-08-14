@@ -1,7 +1,7 @@
 #' @title Add Map Scalebar
 #' @author Thomas Bryce Kelly
 #' @export
-mapScale = function(basemap,
+addScale = function(basemap,
                     pos = 1,
                     scale = NULL,
                     col = 'black',

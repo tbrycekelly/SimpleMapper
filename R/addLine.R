@@ -7,7 +7,7 @@
 #' @param lty the type of line to be drawn
 #' @param lwd the width of the line to be drawn
 #' @export
-mapLine = function(basemap,
+addLine = function(basemap,
                         lon,
                         lat,
                         col = 'black',

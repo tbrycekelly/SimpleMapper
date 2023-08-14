@@ -11,7 +11,7 @@
 #' @param ... optional arguments passed to points().
 #' @import rgdal
 #' @export
-mapPoints = function(basemap,
+addPoints = function(basemap,
                    lon,
                    lat,
                    col = 'black',
