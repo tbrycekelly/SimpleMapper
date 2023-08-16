@@ -2,14 +2,6 @@
 #' @title Add Map Layer
 #' @description  Add a image layer to the map!
 #' @author Thomas Bryce Kelly
-#' @param lon longitude of the data
-#' @param lat latitude of the data
-#' @param z the data
-#' @param zlim the limits of the z-axis. A value of NULL indicates that zlim should equal the range of z values.
-#' @param pal the name of a palette generating function. Should be a string.
-#' @param col.na the color with which any NAs should be drawn with. A value of NA skips this step.
-#' @param n the number of distinct colors to request from the palette function.
-#' @param refinement the level of bilinear refinement to apply to the image grid
 #' @export
 addLayer = function(basemap,
                          lon,

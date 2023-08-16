@@ -6,25 +6,8 @@
 \usage{
 addPoints(basemap, lon, lat, col = "black", pch = 1, cex = 1, ...)
 }
-\arguments{
-\item{lon}{the longitudes of the points to be drawn}
-
-\item{lat}{the latitude of the points to be drawn}
-
-\item{col}{the color of the points}
-
-\item{pch}{the point character to be used}
-
-\item{cex}{the size of point to be drawn}
-
-\item{...}{optional arguments passed to points().}
-
-\item{stn.lon}{(depreciated) the longitudes of the points to be drawn}
-
-\item{stn.lat}{(depreciated) the latitude of the points to be drawn}
-}
 \description{
-Add station points to a map
+Add Map Points
 }
 \author{
 Laura Whitmore

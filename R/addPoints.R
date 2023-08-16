@@ -1,15 +1,5 @@
 #' @title Add Map Points
 #' @author Laura Whitmore
-#' @description Add station points to a map
-#' @param lon the longitudes of the points to be drawn
-#' @param lat the latitude of the points to be drawn
-#' @param stn.lon (depreciated) the longitudes of the points to be drawn
-#' @param stn.lat (depreciated) the latitude of the points to be drawn
-#' @param col the color of the points
-#' @param cex the size of point to be drawn
-#' @param pch the point character to be used
-#' @param ... optional arguments passed to points().
-#' @import rgdal
 #' @export
 addPoints = function(basemap,
                    lon,
