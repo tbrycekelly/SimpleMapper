@@ -48,16 +48,33 @@ map = plotBasemap(coastline = 'coastline4',
 
 ## Add a layer:
 library(pals)
-map = plotBasemap(coastline = 'coastline4',
+map = plotBasemap(coastline = 'coastline2',
                   lon = -71, 
                   lat = 42,
-                  scale = 500)
+                  scale = 1e4)
 
 map = addLayer(basemap = map, 
                lon = sschl$lon,
                lat = sschl$lat,
-               z = sschl$sst, pal = cubicl(16), zlim = c(0, 20))
+               z = sschl$sst, pal = cubicl(16), refine = -4)
 
 map = addCoastline(map)
 
 map = addScale(map)
+
+
+
+zColor = function(z, pal = greyscale(16), zlim = NULL) {
+  col = rep(NA, length(z))
+  
+  if (is.null(zlim)) { 
+    zlim = range(pretty(as.numeric(z), na.rm = TRUE))
+  }
+  
+  z[z < zlim[1]] = NA
+  z[z > zlim[2]] = NA
+  col = (z - zlim[1]) / (zlim[2] - zlim[1]) * (length(pal) - 1) + 1
+  
+  pal[round(col)]
+}
+

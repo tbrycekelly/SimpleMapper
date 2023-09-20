@@ -10,28 +10,14 @@ addLayer = function(basemap,
                          zlim = NULL,
                          pal = greyscale(255),
                          trim = T,
+                         refine = 0,
                          verbose = T) {
   
+  # TODO Orient lon based on center of map to naturally deal with antimeridian situations.
   ## Misc corrections
-  #lon = lon %% 360
-  #map$lon.min = map$lon.min %% 360
-  #map$lon.max = map$lon.max %% 360
   lon = as.array(lon)
   lat = as.array(lat)
   z = as.array(z)
-  
-  ## Resize as needed:
-  # size = dev.size(units = 'px')
-  # while (length(lon) > 2 * size[1] & length(lon) > 50) {
-  #   lon = lon[seq(1, length(lon), by = 2)]
-  #   z = apply(z, 1, function(x) { (0.5 * x[-1] +  0.5 * x[-length(x)])[seq(1, length(x)-1, by = 2)]})
-  # }
-  # 
-  # while (length(lat) > 2 * size[2] & length(lat) > 50) {
-  #   lat = lat[seq(1, length(lon), by = 2)]
-  #   z = apply(z, 2, function(x) { 0.5 * x[-1] +  0.5 * x[-length(x)]})
-  # }
-  
   
   if (length(dim(lon)) < 2) {
     if (verbose) { message(' Establishing Grid...', appendLF = F) }
@@ -105,28 +91,16 @@ addLayer = function(basemap,
      if (verbose) { message(' complete, n = ', length(z), ' (', 100 - round(100 * length(z) / nz), '% trimmed)')}
    }
   
-  ## Refinement
-  # if (refine > 0) {
-  #   if (!antimeridan) {
-  #     lon[lon > 180] = lon[lon>180] - 360
-  #   }
-  #   for (i in 1:refine) {
-  #     temp = grid.refinement(lon, lat, z)
-  #     lon = temp$x
-  #     lat = temp$y
-  #     z = temp$z
-  #   }
-  #   if (verbose) {message(' Refined grid by ', 2^refine,'x.')}
-  # } else if (refine < 0) {
-  #   for (i in 1:abs(refine)) {
-  #     temp = grid.subsample(lon, lat, z)
-  #     lon = temp$x
-  #     lat = temp$y
-  #     z = temp$z
-  #   }
-  #   if (verbose) {message(' Refined grid by 1:', 2^-refine,'x.')}
-  # }
-  
+  ## Subsample
+  if (refine < 0) {
+    for (i in 1:abs(refine)) {
+      temp = gridSubsample(lon, lat, z)
+      lon = temp$x
+      lat = temp$y
+      z = temp$z
+    }
+    if (verbose) {message(' Subsampled grid by 1:', 2^-refine,'x.')}
+  }
   
   
   ## Project and Plot
@@ -139,6 +113,18 @@ addLayer = function(basemap,
   xy$x = xy$x[l,]
   xy$y = xy$y[l,]
   z = z[l,]
+  
+  
+  ## Refinement
+  if (refine > 0) {
+    for (i in 1:refine) {
+      temp = gridRefinement(xy$x, xy$y, z)
+      xy$x = temp$x
+      xy$y = temp$y
+      z = temp$z
+    }
+    if (verbose) {message(' Refined grid by ', 2^refine,'x.')}
+  } 
   
   xy = calc.vertex(x = xy$x, y = xy$y)
   
@@ -167,12 +153,6 @@ addLayer = function(basemap,
   
   ## Extras
   if (verbose) { message(' Final stats: \tN.low: ', sum(z < zlim[1]), '\tN.high: ', sum(z > zlim[2]), '\tN: ', length(z)) }
-  # 
-  # if (indicate) {
-  #   st = paste0('Data range: (', round(min(z, na.rm = TRUE), 3), ', ', round(max(z, na.rm = TRUE), 3),
-  #               ')   Z range: (', round(zlim[1], 3), ', ', round(zlim[2], 3), ')'
-  #   )
-  #   mtext(st, line = 0.25, adj = 1, cex = 0.7)
-  # }
+
   basemap
 }
