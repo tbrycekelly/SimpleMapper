@@ -4,7 +4,16 @@
 \alias{addLayer}
 \title{Add Map Layer}
 \usage{
-addLayer(basemap, lon, lat, z, zlim = NULL, pal = greyscale(255), verbose = T)
+addLayer(
+  basemap,
+  lon,
+  lat,
+  z,
+  zlim = NULL,
+  pal = greyscale(255),
+  trim = T,
+  verbose = T
+)
 }
 \description{
 Add a image layer to the map!

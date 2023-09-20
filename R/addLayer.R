@@ -9,6 +9,7 @@ addLayer = function(basemap,
                          z,
                          zlim = NULL,
                          pal = greyscale(255),
+                         trim = T,
                          verbose = T) {
   
   ## Misc corrections
@@ -18,6 +19,19 @@ addLayer = function(basemap,
   lon = as.array(lon)
   lat = as.array(lat)
   z = as.array(z)
+  
+  ## Resize as needed:
+  # size = dev.size(units = 'px')
+  # while (length(lon) > 2 * size[1] & length(lon) > 50) {
+  #   lon = lon[seq(1, length(lon), by = 2)]
+  #   z = apply(z, 1, function(x) { (0.5 * x[-1] +  0.5 * x[-length(x)])[seq(1, length(x)-1, by = 2)]})
+  # }
+  # 
+  # while (length(lat) > 2 * size[2] & length(lat) > 50) {
+  #   lat = lat[seq(1, length(lon), by = 2)]
+  #   z = apply(z, 2, function(x) { 0.5 * x[-1] +  0.5 * x[-length(x)]})
+  # }
+  
   
   if (length(dim(lon)) < 2) {
     if (verbose) { message(' Establishing Grid...', appendLF = F) }
@@ -37,64 +51,59 @@ addLayer = function(basemap,
   nz = length(z)
   
   ## Trim
-  # if (trim & length(z) > 100) {
-  #   
-  #   if (verbose) { message(' Starting domain trimming... ', appendLF = F)}
-  #   usr = par('usr')
-  #   
-  #   corners = expand.grid(lon = c(usr[1], usr[2]),
-  #                         lat = c(usr[3], usr[4]))
-  #   corners = rgdal::project(cbind(corners$lon, corners$lat), proj = map$p, inv = T)
-  #   
-  #   
-  #   if (corners[1,1] > corners[2,1]) { ## antimeridian
-  #     if (verbose) { message(' antimeridian... ', appendLF = F)}
-  #     antimeridian = T
-  #   } else {
-  #     antimeridian = F
-  #     lon = lon %% 360
-  #     lon[lon > 180] = lon[lon > 180] - 360
-  #   }
-  #   
-  #   field = expand.grid(lon = seq(usr[1], usr[2], length.out = 100),
-  #                       lat = seq(usr[3], usr[4], length.out = 100))
-  #   field = rgdal::project(cbind(field$lon, field$lat), proj = map$p, inv = T)
-  #   
-  #   field[,1] = field[,1] %% 360
-  #   if (!antimeridian & any(field[,1] > 180)) {
-  #     l = which(!is.na(field[,1]) & field[,1] > 180)
-  #     field[l,1] = field[l,1] - 360
-  #   }
-  #   
-  #   field.lon = range(field[,1], na.rm = T) %% 360
-  #   field.lat = range(field[,2], na.rm = T) 
-  #   
-  #   ## Trim longitude
-  #   if (field.lat[1] > -80 & field.lat[2] < 80) { ## only if a pole isn't visible!
-  #     if (verbose) { message(' longitude... ', appendLF = F)}
-  #     if (corners[1,1] > corners[2,1]) { ## antimeridian
-  #       k = apply(lon, 1, function(x) {any(x >= field.lon[1] & x <= field.lon[2])})
-  #     } else {
-  #       k = apply(lon, 1, function(x) {any(x <= field.lon[2] & x >= field.lon[1])})
-  #     }
-  #     
-  #     if (sum(k) > 2) {
-  #       z = z[k,]
-  #       lon = lon[k,]
-  #       lat = lat[k,]
-  #     }
-  #   }
-  #   
-  #   ## Trim latitude
-  #   if (verbose) { message(' latitude... ', appendLF = F) }
-  #   k = apply(lat, 2, function(x) {any(x >= field.lat[1] & x <= field.lat[2])})
-  #   if (sum(k) > 2) {
-  #     z = z[,k]
-  #     lon = lon[,k]
-  #     lat = lat[,k]
-  #   }
-  #   if (verbose) { message(' complete, n = ', length(z), ' (', 100 - round(100 * length(z) / nz), '% trimmed)')}
-  # }
+   if (trim & length(z) > 100) {
+     
+     if (verbose) { message(' Starting domain trimming... ', appendLF = F)}
+     usr = par('usr')
+     
+     corners = expand.grid(lon = c(usr[1], usr[2]),
+                           lat = c(usr[3], usr[4]))
+     corners = basemap$projection(corners$lon, corners$lat, lon0 = basemap$lon, lat0 = basemap$lat, inv = T)
+     
+     
+     #if (corners[1,1] > corners[2,1]) { ## antimeridian
+    #   if (verbose) { message(' antimeridian... ', appendLF = F)}
+    #   antimeridian = T
+    # } else {
+    #   antimeridian = F
+    #   lon = lon %% 360
+    #   lon[lon > 180] = lon[lon > 180] - 360
+    # }
+     
+     field = expand.grid(lon = seq(usr[1], usr[2], length.out = 100),
+                         lat = seq(usr[3], usr[4], length.out = 100))
+     field = basemap$projection(field$lon, field$lat, lon0 = basemap$lon, lat0 = basemap$lat, inv = T)
+     
+     #if (!antimeridian & any(field[,1] > 180)) {
+    #   l = which(!is.na(field[,1]) & field[,1] > 180)
+    #   field[l,1] = field[l,1] - 360
+    # }
+     
+     field.lon = range(field[,1] - basemap$lon, na.rm = T)
+     field.lat = range(field[,2] - basemap$lat, na.rm = T) 
+     
+     ## Trim longitude
+     #if (field.lat[1] > -80 & field.lat[2] < 80) { ## only if a pole isn't visible!
+       if (verbose) { message(' longitude... ', appendLF = F)}
+       k = apply(lon - basemap$lon, 1, function(x) {any(x >= field.lon[1] & x <= field.lon[2])})
+       
+       if (sum(k) > 2) {
+         z = z[k,]
+         lon = lon[k,]
+         lat = lat[k,]
+       }
+     #}
+     
+     ## Trim latitude
+     if (verbose) { message(' latitude... ', appendLF = F) }
+     k = apply(lat - basemap$lat, 2, function(x) {any(x >= field.lat[1] & x <= field.lat[2])})
+     if (sum(k) > 2) {
+       z = z[,k]
+       lon = lon[,k]
+       lat = lat[,k]
+     }
+     if (verbose) { message(' complete, n = ', length(z), ' (', 100 - round(100 * length(z) / nz), '% trimmed)')}
+   }
   
   ## Refinement
   # if (refine > 0) {
@@ -136,6 +145,8 @@ addLayer = function(basemap,
   ## Color scale
   if (is.null(zlim)) { zlim = range(pretty(as.numeric(z), na.rm = TRUE)) }
   
+  z[z < zlim[1]] = NA
+  z[z > zlim[2]] = NA
   col = (z - zlim[1]) / (zlim[2] - zlim[1]) * (length(pal) - 1) + 1
   col = pal[round(col)]
   col = array(col, dim = dim(lon))

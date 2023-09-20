@@ -16,4 +16,6 @@ addPoints = function(basemap,
   
   ## Plot
   points(tmp$x, tmp$y, col = col, pch = pch, cex = cex, ...)
+  
+  basemap
 }

@@ -3,7 +3,11 @@
 #' @author Thomas Bryce Kelly
 #' @description Adds a coastline list to a map
 #' @export
-addCoastline = function(basemap, coastline, land.col, lons = c(-180, 180), lats = c(-90, 90)) {
+addCoastline = function(basemap, coastline = NULL, land.col = 'lightgrey', lons = c(-180, 180), lats = c(-90, 90)) {
+  
+  if (is.null(coastline)) {
+    coastline = basemap$coastline
+  }
   
   # Load data if necessary
   if (typeof(coastline) == "character") {

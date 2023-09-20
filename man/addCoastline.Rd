@@ -6,8 +6,8 @@
 \usage{
 addCoastline(
   basemap,
-  coastline,
-  land.col,
+  coastline = NULL,
+  land.col = "lightgrey",
   lons = c(-180, 180),
   lats = c(-90, 90)
 )

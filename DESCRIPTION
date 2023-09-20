@@ -1,7 +1,7 @@
 Package: SimpleMapper
 Type: Package
 Title: A Simple Alternative for Mapping Data in R
-Version: 0.1.0
+Version: 0.1.1
 Author: Thomas Kelly <tbkelly@alaska.edu> and Laura Whitmore <lmwhitmore@alaska.edu>
 Maintainer: Thomas Kelly <tbkelly@alaska.edu> and Laura Whitmore <lmwhitmore@alaska.edu> 
 Description: An R package useful for large scale mapping of datasets that do not require GIS
