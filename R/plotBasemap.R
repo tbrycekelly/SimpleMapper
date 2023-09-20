@@ -21,7 +21,7 @@ plotBasemap = function (coastline = NULL,
   }
   
   if (is.null(projection)) {
-    projection = projectionMercator
+    projection = projectionEqualarea
   }
   
   aspect.ratio = par()$pin[1] / par()$pin[2] # ratio of width:height of the plotting area

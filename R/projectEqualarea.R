@@ -10,7 +10,7 @@ projectionEqualarea = function(lon, lat, lon0 = 0, lat0 = 0, inv = F) {
     lat0 = lat0 / 180 * pi
     
     rho = sqrt(x^2 + y^2)
-    c = 2 * asin(0.5 * rho)
+    c = 2 * asin(pmin(0.5 * rho, 1))
     
     lon = atan(x * sin(c) / (rho * cos(lat0) * cos(c) - y * sin(lat0) * sin(c)))
     lat = asin(cos(c) * sin(lat0) + y * sin(c) * cos(lat0) / rho)

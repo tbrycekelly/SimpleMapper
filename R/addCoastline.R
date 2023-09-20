@@ -3,7 +3,7 @@
 #' @author Thomas Bryce Kelly
 #' @description Adds a coastline list to a map
 #' @export
-addCoastline = function(basemap, coastline, land.col) {
+addCoastline = function(basemap, coastline, land.col, lons = c(-180, 180), lats = c(-90, 90)) {
   
   # Load data if necessary
   if (typeof(coastline) == "character") {
@@ -35,6 +35,9 @@ addCoastline = function(basemap, coastline, land.col) {
   ## Project coastline (takes a while!)
   projected.coast = lapply(coastline$data,
                            function(x) {
+                             x$longitude = pmin(pmax(x$longitude, lons[1]), lons[2])
+                             x$latitude = pmin(pmax(x$latitude, lats[1]), lats[2])
+                             
                              basemap$projection(lon = x$longitude,
                                         lat = x$latitude,
                                         lon0 = basemap$lon,

@@ -35,3 +35,8 @@ basemap = addLayer(basemap, lon = c(-150:-140), lat = c(50:60), z = array(runif(
 basemap = addScale(basemap)
 
 
+basemap = plotBasemap(coastline = 'coastline2', scale = 10e3, lon = 0, lat = 90, projection = projectionEqualarea)
+basemap = addAxis(basemap, lats = 45, lons = seq(-180, 150, by = 30))
+
+
+

@@ -4,7 +4,13 @@
 \alias{addCoastline}
 \title{Add Coastline to basemap}
 \usage{
-addCoastline(basemap, coastline, land.col)
+addCoastline(
+  basemap,
+  coastline,
+  land.col,
+  lons = c(-180, 180),
+  lats = c(-90, 90)
+)
 }
 \description{
 Adds a coastline list to a map
