@@ -1,4 +1,3 @@
-#' @export
 break.polygon = function(basemap, projected.coast) {
   
   i = 1
