@@ -39,8 +39,26 @@ basemap = addScale(basemap)
 basemap = plotBasemap(coastline = 'coastline2', scale = 10e3, lon = 0, lat = 90, projection = projectionEqualarea)
 basemap = addAxis(basemap, lats = c(45, 60, 75), lons = seq(-180, 150, by = 30))
 
-basemap = plotBasemap(coastline = 'coastline2', scale = 5e3, lon = 30, lat = 78, projection = projectionEqualarea)
+basemap = plotBasemap(coastline = 'coastline3', scale = 5e3, lon = 30, lat = 78, projection = projectionEqualarea)
 basemap = addAxis(basemap, lats = c(45, 60, 75), lons = seq(-180, 150, by = 30))
 basemap = addRadius(basemap, 30, 78, 3000)
+
+
+
+
+basemap = plotBasemap(coastline = 'coastline3', scale = 8e3, lon = 30, lat = 78, projection = projectionEqualarea)
+basemap = addAxis(basemap, lats = c(45, 60, 75), lons = seq(-180, 150, by = 30))
+
+bathy = getBathymetry(basemap, res = basemap$scale/200)
+basemap = addLayer(basemap, bathy$lon, bathy$lat, bathy$z, pal = pals::ocean.deep(16), zlim = c(-3e3, 100), trim = T)
+basemap = addCoastline(basemap)
+
+
+
+
+basemap = plotBasemap(coastline = 'coastline4', scale = 200, lon = -150, lat = 60)
+bathy = getBathymetry(basemap, res = 1)
+map = addLayer(basemap, bathy$lon, bathy$lat, bathy$z, pal = pals::ocean.(16), trim = F, zlim = c(-3e3, 1))
+basemap = addCoastline(basemap)
 
 

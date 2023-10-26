@@ -8,8 +8,9 @@ addLayer = function(basemap,
                          lat,
                          z,
                          zlim = NULL,
+                         ztrim = F,
                          pal = greyscale(255),
-                         trim = T,
+                         trim = NULL,
                          refine = 0,
                          verbose = T) {
   
@@ -65,8 +66,8 @@ addLayer = function(basemap,
     #   field[l,1] = field[l,1] - 360
     # }
      
-     field.lon = range(field[,1] - basemap$lon, na.rm = T)
-     field.lat = range(field[,2] - basemap$lat, na.rm = T) 
+     field.lon = range(field$longitude - basemap$lon, na.rm = T)
+     field.lat = range(field$latitude - basemap$lat, na.rm = T) 
      
      ## Trim longitude
      #if (field.lat[1] > -80 & field.lat[2] < 80) { ## only if a pole isn't visible!
@@ -109,11 +110,6 @@ addLayer = function(basemap,
   xy = basemap$projection(lon = as.numeric(lon), lat = as.numeric(lat), lon0 = basemap$lon, lat0 = basemap$lat)
   xy = list(x = array(xy$x, dim = dim(lon)),
             y = array(xy$y, dim = dim(lon)))
-  l = order(xy$x[,round(dim(lon)[2]/2)])
-  xy$x = xy$x[l,]
-  xy$y = xy$y[l,]
-  z = z[l,]
-  
   
   ## Refinement
   if (refine > 0) {
@@ -130,9 +126,10 @@ addLayer = function(basemap,
   
   ## Color scale
   if (is.null(zlim)) { zlim = range(pretty(as.numeric(z), na.rm = TRUE)) }
+  if (is.null(ztrim)) { ztrim = zlim }
+  z[z < zlim[1]] = ztrim[1]
+  z[z > zlim[2]] = ztrim[2]
   
-  z[z < zlim[1]] = NA
-  z[z > zlim[2]] = NA
   col = (z - zlim[1]) / (zlim[2] - zlim[1]) * (length(pal) - 1) + 1
   col = pal[round(col)]
   col = array(col, dim = dim(lon))
