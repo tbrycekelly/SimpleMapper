@@ -6,9 +6,10 @@ projectionMercator = function(lon, lat, lon0 = 0, lat0 = 0, inv = F) {
   if (inv) {
     x = lon * 180 / pi / R + lon0
     y = 2 * atan(exp(lat / R)) - 0.5 * pi
-    y = y * 180 / pi + lat0
+    lat = y * 180 / pi + lat0
     
-    return(data.frame(longitude = x, latitude = y))
+    lon = standardize.longitude(x)
+    return(data.frame(longitude = lon, latitude = y))
   }
   
   

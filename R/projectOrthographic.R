@@ -12,19 +12,22 @@ projectionOrthographic = function(lon, lat, lon0 = 0, lat0 = 0, inv = F) {
     rho = sqrt(x^2 + y^2)
     c = asin(rho)
     
-    lon = atan(x * sin(c) / (rho * cos(lat0) * cos(c) - y * sin(lat0) * sin(c)))
+    lon = atan2(x * sin(c), (rho * cos(lat0) * cos(c) - y * sin(lat0) * sin(c)))
     lat = asin(cos(c) * sin(lat0) + y * sin(c) * cos(lat0) / rho)
     
-    return(data.frame(longitude = lon * 180 / pi + lon0,
+    lon = lon * 180 / pi + lon0
+    lon = standardize.longitude(lon)
+    
+    return(data.frame(longitude = lon,
                       latitude = lat * 180 / pi))
   }
   
   ## Remove antimeridian points 
   # TODO Note sure if this works
-  k = which(abs(lon - lon0 %% 360) > 90 & abs(lat - lat0) > 90)
-  lon[k] = NA
-  lat[k] = NA
-  
+  lon = lon - lon0
+  #k = which(abs(lon %% 360) > 90 & abs(lat - lat0) > 90)
+  #lon[k] = 90
+  #lat[k] = NA
   
   lon = lon / 180 * pi
   lat = lat / 180 * pi
