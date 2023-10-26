@@ -10,8 +10,9 @@ addLayer(
   lat,
   z,
   zlim = NULL,
+  ztrim = F,
   pal = greyscale(255),
-  trim = T,
+  trim = NULL,
   refine = 0,
   verbose = T
 )

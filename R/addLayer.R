@@ -8,7 +8,7 @@ addLayer = function(basemap,
                          lat,
                          z,
                          zlim = NULL,
-                         ztrim = F,
+                         ztrim = NULL,
                          pal = greyscale(255),
                          trim = NULL,
                          refine = 0,
@@ -127,8 +127,8 @@ addLayer = function(basemap,
   ## Color scale
   if (is.null(zlim)) { zlim = range(pretty(as.numeric(z), na.rm = TRUE)) }
   if (is.null(ztrim)) { ztrim = zlim }
-  z[z < zlim[1]] = ztrim[1]
-  z[z > zlim[2]] = ztrim[2]
+  z[!is.na(z) & z < zlim[1]] = ztrim[1]
+  z[!is.na(z) & z > zlim[2]] = ztrim[2]
   
   col = (z - zlim[1]) / (zlim[2] - zlim[1]) * (length(pal) - 1) + 1
   col = pal[round(col)]
