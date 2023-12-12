@@ -12,7 +12,7 @@ addLayer(
   zlim = NULL,
   ztrim = NULL,
   pal = greyscale(255),
-  trim = NULL,
+  trim = T,
   refine = 0,
   verbose = T
 )

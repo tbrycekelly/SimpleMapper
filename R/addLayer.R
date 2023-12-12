@@ -10,13 +10,14 @@ addLayer = function(basemap,
                          zlim = NULL,
                          ztrim = NULL,
                          pal = greyscale(255),
-                         trim = NULL,
+                         trim = T,
                          refine = 0,
                          verbose = T) {
   
   # TODO Orient lon based on center of map to naturally deal with antimeridian situations.
   ## Misc corrections
   lon = as.array(lon)
+  lon = standardize.longitude(lon)
   lat = as.array(lat)
   z = as.array(z)
   
@@ -59,20 +60,20 @@ addLayer = function(basemap,
      
      field = expand.grid(lon = seq(usr[1], usr[2], length.out = 100),
                          lat = seq(usr[3], usr[4], length.out = 100))
-     field = basemap$projection(field$lon, field$lat, lon0 = basemap$lon, lat0 = basemap$lat, inv = T)
+     field = basemap$projection(field$lon, field$lat, lon0 = 0, lat0 = basemap$lat, inv = T) # lon = 0 in center of screen
      
      #if (!antimeridian & any(field[,1] > 180)) {
     #   l = which(!is.na(field[,1]) & field[,1] > 180)
     #   field[l,1] = field[l,1] - 360
     # }
      
-     field.lon = range(field$longitude - basemap$lon, na.rm = T)
-     field.lat = range(field$latitude - basemap$lat, na.rm = T) 
+     field.lon = range(field$longitude + basemap$lon, na.rm = T)
+     field.lat = range(field$latitude, na.rm = T) 
      
      ## Trim longitude
      #if (field.lat[1] > -80 & field.lat[2] < 80) { ## only if a pole isn't visible!
        if (verbose) { message(' longitude... ', appendLF = F)}
-       k = apply(lon - basemap$lon, 1, function(x) {any(x >= field.lon[1] & x <= field.lon[2])})
+       k = apply(lon, 1, function(x) {any(x >= field.lon[1] & x <= field.lon[2])})
        
        if (sum(k) > 2) {
          z = z[k,]
@@ -83,7 +84,7 @@ addLayer = function(basemap,
      
      ## Trim latitude
      if (verbose) { message(' latitude... ', appendLF = F) }
-     k = apply(lat - basemap$lat, 2, function(x) {any(x >= field.lat[1] & x <= field.lat[2])})
+     k = apply(lat, 2, function(x) {any(x >= field.lat[1] & x <= field.lat[2])})
      if (sum(k) > 2) {
        z = z[,k]
        lon = lon[,k]
