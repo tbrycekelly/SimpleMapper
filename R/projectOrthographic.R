@@ -1,4 +1,4 @@
-
+#' Orthographic Projection
 #' @export
 projectionOrthographic = function(lon, lat, lon0 = 0, lat0 = 0, inv = F) {
   R = 6.371e3

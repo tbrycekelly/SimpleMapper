@@ -1,4 +1,4 @@
-
+#' Equal Area Projection
 #' @export
 projectionEqualarea = function(lon, lat, lon0 = 0, lat0 = 0, inv = F) {
   R = 6.371e3
