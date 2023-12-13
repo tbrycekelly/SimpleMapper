@@ -3,11 +3,11 @@ Type: Package
 Title: A Simple Alternative for Mapping Data in R
 Version: 0.1.1
 Author: Thomas Kelly <tbkelly@alaska.edu> and Laura Whitmore <lmwhitmore@alaska.edu>
-Maintainer: Thomas Kelly <tbkelly@alaska.edu> and Laura Whitmore <lmwhitmore@alaska.edu> 
+Maintainer: Thomas Kelly <tbkelly@alaska.edu>
 Description: An R package useful for large scale mapping of datasets that do not require GIS
-    specific methords or accuracy. This package is designed to be simple and easy to adapt/use
-    for your projects and visulaization needs.
-License: MIT Licence
+    specific methods or accuracy. This package is designed to be simple and easy to adapt/use
+    for your projects and visulization needs.
+License: MIT Licence (see LICENSE)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3

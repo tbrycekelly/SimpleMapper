@@ -1,3 +1,4 @@
+library(SimpleMapper)
 
 
 N = 1000

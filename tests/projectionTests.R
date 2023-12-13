@@ -1,3 +1,5 @@
+library(SimpleMapper)
+
 results = list()
 
 { ## Test Orthographic
