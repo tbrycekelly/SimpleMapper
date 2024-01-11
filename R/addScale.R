@@ -1,4 +1,5 @@
 #' @title Add Map Scalebar
+#' Adds a scalebar onto a map
 #' @author Thomas Bryce Kelly
 #' @export
 addScale = function(basemap,

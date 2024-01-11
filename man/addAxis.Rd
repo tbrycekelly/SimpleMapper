@@ -4,7 +4,20 @@
 \alias{addAxis}
 \title{Add Axis to Map}
 \usage{
-addAxis(basemap, lons, lats, label.sides = c(1:4), col = "#00000030", ...)
+addAxis(basemap, lons, lats, sides = c(1:4), col = "#00000030", ...)
+}
+\arguments{
+\item{basemap}{basemap such as that from plotBasemap()}
+
+\item{lons}{vector of longitude values (in degree easting) to overlayt}
+
+\item{lats}{vector of latitude values (in degree northing) to overlay}
+
+\item{sides}{integer or vector of integers for which sides to add axes (if any).}
+
+\item{col}{color value for the graticule lines}
+
+\item{...}{optional arguments passed on to lines()}
 }
 \description{
 Add Axis to Map

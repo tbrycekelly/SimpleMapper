@@ -1,21 +1,20 @@
 #' @title Add Axis to Map
 #' @author Thomas Bryce Kelly
+#' @importFrom graphics axis box lines par points polygon text
+#' @importFrom stats approx
+#' @param basemap basemap such as that from plotBasemap()
+#' @param lons vector of longitude values (in degree easting) to overlayt
+#' @param lats vector of latitude values (in degree northing) to overlay
+#' @param sides integer or vector of integers for which sides to add axes (if any).
+#' @param col color value for the graticule lines
+#' @param ... optional arguments passed on to lines()
 #' @export
 addAxis = function(basemap,
                    lons,
                    lats,
-                   label.sides = c(1:4),
+                   sides = c(1:4),
                    col = '#00000030',
                    ...) {
-  
-  
-  ## Determine domain
-  #field = expand.grid(x = seq(-1, 1, length.out = 25),
-  #                    y = seq(-basemap$aspect.ratio, basemap$aspect.ratio, length.out = 25)) * basemap$scale
-  
-  #field = basemap$projection(field$x, field$y, lon0 = 0, lat0 = 0, inv = T) # assuming -180:180 and -90:90 as relative positions
-  
-  # TODO How to find out which entries to put, need an antimeridian flag!
   
   par(las=1)
   usr = par()$usr
@@ -48,10 +47,10 @@ addAxis = function(basemap,
             s = 'W'; ll = -ll 
           }
           
-          if (diff(range(sign(tmp$y[split[[i]]] - usr[3]))) > 0 & 1 %in% label.sides) { # TODO add angle
+          if (diff(range(sign(tmp$y[split[[i]]] - usr[3]))) > 0 & 1 %in% sides) { # TODO add angle
             axis(1, at = approx(tmp$y[split[[i]]], tmp$x[split[[i]]], xout = usr[3], rule = 2)$y, labels = paste(ll, s))
           }
-          if (diff(range(sign(tmp$y[split[[i]]] - usr[4]))) > 0 & 3 %in% label.sides) {
+          if (diff(range(sign(tmp$y[split[[i]]] - usr[4]))) > 0 & 3 %in% sides) {
             axis(3, at = approx(tmp$y[split[[i]]], tmp$x[split[[i]]], xout = usr[4], rule = 2)$y, labels = paste(ll, s))
           }
         }
@@ -85,10 +84,10 @@ addAxis = function(basemap,
             s = 'S'; ll = -ll 
           }
           
-          if (diff(range(sign(tmp$x[split[[i]]] - usr[1]))) > 0 & 2 %in% label.sides) {
+          if (diff(range(sign(tmp$x[split[[i]]] - usr[1]))) > 0 & 2 %in% sides) {
             axis(2, at = approx(tmp$x[split[[i]]], tmp$y[split[[i]]], xout = usr[2], rule = 2)$y, labels = paste(ll, s))
           }
-          if (diff(range(sign(tmp$x[split[[i]]] - usr[2]))) > 0 & 4 %in% label.sides) {
+          if (diff(range(sign(tmp$x[split[[i]]] - usr[2]))) > 0 & 4 %in% sides) {
             axis(4, at = approx(tmp$x[split[[i]]], tmp$y[split[[i]]], xout = usr[4], rule = 2)$y, labels = paste(ll, s))
           }
         }
@@ -99,25 +98,3 @@ addAxis = function(basemap,
   
   basemap
 }
-
-splitBool = function(vec) {
-  
-  ## If all are bad, return empty
-  if (all(!vec)) {
-    return(list())
-  }
-  
-  ret = list()
-  breaks = unique(c(1, which(diff(vec) != 0)+1, length(vec)))
-  
-  for (i in 2:length(breaks)) {
-    start = breaks[i - 1]
-    end = breaks[i] - 1
-    if (vec[start]) {
-      ret[[paste(start)]] = c(start:end)
-    }
-  }
-  
-  ret
-}
-

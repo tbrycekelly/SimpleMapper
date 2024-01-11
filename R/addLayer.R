@@ -1,6 +1,16 @@
 
 #' @title Add Map Layer
 #' @description  Add a image layer to the map!
+#' @param basemap a list object such as from plotBasemap()
+#' @param lon a vector or array of longitude values that match the z grid provided
+#' @param lat a vector or array of latitude values that match the z grid provided
+#' @param z a grid (matrix or array) to be used for plotting
+#' @param zlim the value limits used to match up colors to numerical values. Default is range(z)
+#' @param ztrim the values used to substitute for numeric values outside of zlim. E.g. an NA value will skip plotting.
+#' @param pal a vector of colors applied against the z grid to generate colors
+#' @param trim a boolean value to turn on automatic trimming of the z grid to the visible map. Can cause (obvious) artefacts in some circumstances.
+#' @param refine an integer value used to refine (or subsample) the provided grid. Positive values will refine and negative values will subsample.
+#' @param verbose a boolean flag to turn on/off displayed messages
 #' @author Thomas Bryce Kelly
 #' @export
 addLayer = function(basemap,
@@ -126,7 +136,12 @@ addLayer = function(basemap,
   xy = calc.vertex(x = xy$x, y = xy$y)
   
   ## Color scale
-  if (is.null(zlim)) { zlim = range(pretty(as.numeric(z), na.rm = TRUE)) }
+  if (is.null(zlim)) {
+    zlim = range(pretty(as.numeric(z), na.rm = TRUE))
+    if (verbose) {
+      message(' No zlim specified, automatically picked ', zlim[1], ' ', zlim[2], '.')
+    }
+  }
   if (is.null(ztrim)) { ztrim = zlim }
   z[!is.na(z) & z < zlim[1]] = ztrim[1]
   z[!is.na(z) & z > zlim[2]] = ztrim[2]
