@@ -68,4 +68,4 @@
 #' @title World EEZ Data
 #' Global maritime eez boundaries. Creative Commons Attribution 4.0
 #' @source Flanders Marine Institute (2019). Maritime Boundaries Geodatabase: Maritime Boundaries and Exclusive Economic Zones (200NM), version 11. Available online at https://www.marineregions.org/. https://doi.org/10.14284/386
-"eez"
+"eez5"

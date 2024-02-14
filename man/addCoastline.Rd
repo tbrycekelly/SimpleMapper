@@ -12,6 +12,17 @@ addCoastline(
   lats = c(-90, 90)
 )
 }
+\arguments{
+\item{basemap}{a list generated from plotBasemap()}
+
+\item{coastline}{a specific list of coastline longitude/latitude to be used for plotting. If NULL (default) then will use the coastline specified in basemap.}
+
+\item{land.col}{a color value used to fill the coastline polygons}
+
+\item{lons}{an optional limit to the valid longitude values that will be used. Useful to eliminate some artefacts.}
+
+\item{lats}{an optional limit to the valid latitude values that will be used. Useful to eliminate some artefacts.}
+}
 \description{
 Adds a coastline list to a map
 }

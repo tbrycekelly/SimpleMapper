@@ -17,6 +17,27 @@ addLayer(
   verbose = T
 )
 }
+\arguments{
+\item{basemap}{a list object such as from plotBasemap()}
+
+\item{lon}{a vector or array of longitude values that match the z grid provided}
+
+\item{lat}{a vector or array of latitude values that match the z grid provided}
+
+\item{z}{a grid (matrix or array) to be used for plotting}
+
+\item{zlim}{the value limits used to match up colors to numerical values. Default is range(z)}
+
+\item{ztrim}{the values used to substitute for numeric values outside of zlim. E.g. an NA value will skip plotting.}
+
+\item{pal}{a vector of colors applied against the z grid to generate colors}
+
+\item{trim}{a boolean value to turn on automatic trimming of the z grid to the visible map. Can cause (obvious) artefacts in some circumstances.}
+
+\item{refine}{an integer value used to refine (or subsample) the provided grid. Positive values will refine and negative values will subsample.}
+
+\item{verbose}{a boolean flag to turn on/off displayed messages}
+}
 \description{
 Add a image layer to the map!
 }

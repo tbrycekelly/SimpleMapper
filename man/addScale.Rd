@@ -2,12 +2,14 @@
 % Please edit documentation in R/addScale.R
 \name{addScale}
 \alias{addScale}
-\title{Add Map Scalebar}
+\title{Add Map Scalebar
+Adds a scalebar onto a map}
 \usage{
 addScale(basemap, pos = 1, scale = NULL, col = "black", cex = 1)
 }
 \description{
 Add Map Scalebar
+Adds a scalebar onto a map
 }
 \author{
 Thomas Bryce Kelly

@@ -2,6 +2,7 @@
 
 export(addAxis)
 export(addCoastline)
+export(addEEZ)
 export(addLayer)
 export(addLine)
 export(addPoints)
