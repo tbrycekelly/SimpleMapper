@@ -44,4 +44,4 @@ for (i in 1:length(highseas$geometry[[1]])) {
 eez5 = eez.data
 save(eez5, file = 'data/eez5.rdata')
 
-object.size(eez)
+object.size(eez5)
