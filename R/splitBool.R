@@ -2,6 +2,7 @@
 #' A helper function that takes a boolean vector and returns a list of indicies for each sequence of consecutive T/F values.
 #' @author Thomas Bryce Kelly
 #' @param vec a boolean vector to be split
+#' @export
 splitBool = function(vec) {
   
   ## If all are bad, return empty

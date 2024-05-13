@@ -15,9 +15,19 @@ plotBasemap = function (coastline = NULL,
                       frame = T,
                       verbose = T) {
   
+  lon = standardize.longitude(lon)
+  
   ## Apply Defaults
   if (is.null(coastline)) { 
-    coastline = 'coastline2' 
+    if (scale < 1000) {
+      coastline = coastline4
+    } else if (scale < 3000) {
+      coastline = coastline3
+    } else if (scale < 10000) {
+      coastline = coastline2
+    } else {
+      coastline = coastline1
+    }
   }
   
   if (is.null(projection)) {

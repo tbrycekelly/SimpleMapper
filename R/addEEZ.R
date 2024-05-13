@@ -5,7 +5,7 @@
 #' @param verbose a boolean flag to turn on/off displayed messages
 #' @author Thomas Bryce Kelly
 #' @export
-addEEZ = function(basemap, eez, pattern = '*', ..., verbose = T) {
+addEEZ = function(basemap, eez = NULL, pattern = '*', ..., verbose = T) { #TODO Only plot lines that are within the viewing window.
   k = grep(pattern, names(eez))
   
   for (i in 1:length(k)) {

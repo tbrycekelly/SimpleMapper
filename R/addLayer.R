@@ -27,7 +27,7 @@ addLayer = function(basemap,
   # TODO Orient lon based on center of map to naturally deal with antimeridian situations.
   ## Misc corrections
   lon = as.array(lon)
-  lon = standardize.longitude(lon)
+  lon = standardize.longitude(lon - basemap$lon) # NB: relative longitude throughout!
   lat = as.array(lat)
   z = as.array(z)
   
@@ -49,59 +49,24 @@ addLayer = function(basemap,
   nz = length(z)
   
   ## Trim
-   if (trim & length(z) > 100) {
+  if (trim & length(z) > 100) {
+    if (verbose) { message(' Starting domain trimming... ', appendLF = F)}
      
-     if (verbose) { message(' Starting domain trimming... ', appendLF = F)}
-     usr = par('usr')
+    field = fieldOfView(basemap, 100)# lon = 0 in center of screen
      
-     corners = expand.grid(lon = c(usr[1], usr[2]),
-                           lat = c(usr[3], usr[4]))
-     corners = basemap$projection(corners$lon, corners$lat, lon0 = basemap$lon, lat0 = basemap$lat, inv = T)
+    ## Trim latitude
+    if (verbose) { message(' latitude... ', appendLF = F) }
+    k = apply(lat, 2, function(x) {any(x >= floor(field$lat[1]) & x <= ceiling(field$lat[2]))})
+    if (sum(k) > 2) {
+      z = z[,k]
+      lon = lon[,k]
+      lat = lat[,k]
+    }
+    if (verbose) { message(' complete, n = ', length(z), ' (', 100 - round(100 * length(z) / nz), '% trimmed)')}
      
-     
-     #if (corners[1,1] > corners[2,1]) { ## antimeridian
-    #   if (verbose) { message(' antimeridian... ', appendLF = F)}
-    #   antimeridian = T
-    # } else {
-    #   antimeridian = F
-    #   lon = lon %% 360
-    #   lon[lon > 180] = lon[lon > 180] - 360
-    # }
-     
-     field = expand.grid(lon = seq(usr[1], usr[2], length.out = 100),
-                         lat = seq(usr[3], usr[4], length.out = 100))
-     field = basemap$projection(field$lon, field$lat, lon0 = 0, lat0 = basemap$lat, inv = T) # lon = 0 in center of screen
-     
-     #if (!antimeridian & any(field[,1] > 180)) {
-    #   l = which(!is.na(field[,1]) & field[,1] > 180)
-    #   field[l,1] = field[l,1] - 360
-    # }
-     
-     field.lon = range(field$longitude + basemap$lon, na.rm = T)
-     field.lat = range(field$latitude, na.rm = T) 
-     
-     ## Trim longitude
-     #if (field.lat[1] > -80 & field.lat[2] < 80) { ## only if a pole isn't visible!
-       if (verbose) { message(' longitude... ', appendLF = F)}
-       k = apply(lon, 1, function(x) {any(x >= field.lon[1] & x <= field.lon[2])})
-       
-       if (sum(k) > 2) {
-         z = z[k,]
-         lon = lon[k,]
-         lat = lat[k,]
-       }
-     #}
-     
-     ## Trim latitude
-     if (verbose) { message(' latitude... ', appendLF = F) }
-     k = apply(lat, 2, function(x) {any(x >= field.lat[1] & x <= field.lat[2])})
-     if (sum(k) > 2) {
-       z = z[,k]
-       lon = lon[,k]
-       lat = lat[,k]
-     }
-     if (verbose) { message(' complete, n = ', length(z), ' (', 100 - round(100 * length(z) / nz), '% trimmed)')}
-   }
+    if (verbose) { message(' longitude... ', appendLF = F) }
+    k = apply(lon, 1, function(x) {any(x >= floor(field$lon[1]) & x <= ceiling(field$lon[2]))})
+  }
   
   ## Subsample
   if (refine < 0) {
@@ -114,11 +79,10 @@ addLayer = function(basemap,
     if (verbose) {message(' Subsampled grid by 1:', 2^-refine,'x.')}
   }
   
-  
   ## Project and Plot
   if (verbose) {message(' Projecting grid...')}
   
-  xy = basemap$projection(lon = as.numeric(lon), lat = as.numeric(lat), lon0 = basemap$lon, lat0 = basemap$lat)
+  xy = basemap$projection(lon = as.numeric(lon), lat = as.numeric(lat), lon0 = 0, lat0 = basemap$lat)
   xy = list(x = array(xy$x, dim = dim(lon)),
             y = array(xy$y, dim = dim(lon)))
   
@@ -143,6 +107,9 @@ addLayer = function(basemap,
     }
   }
   if (is.null(ztrim)) { ztrim = zlim }
+  ztrim[1] = pmax(ztrim[1], zlim[1])
+  ztrim[2] = pmin(ztrim[2], zlim[2])
+  
   z[!is.na(z) & z < zlim[1]] = ztrim[1]
   z[!is.na(z) & z > zlim[2]] = ztrim[2]
   
@@ -150,8 +117,7 @@ addLayer = function(basemap,
   col = pal[round(col)]
   col = array(col, dim = dim(lon))
   
-  
-  
+  ## Would love to find a more efficient way to plot many small rectangles
   if (verbose) { message(' Starting plotting... ', appendLF = F) }
   for (i in 1:dim(col)[1]) {
     for (j in 1:dim(col)[2]) {

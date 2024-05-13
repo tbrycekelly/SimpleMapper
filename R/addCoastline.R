@@ -8,7 +8,7 @@
 #' @param lons an optional limit to the valid longitude values that will be used. Useful to eliminate some artefacts.
 #' @param lats an optional limit to the valid latitude values that will be used. Useful to eliminate some artefacts.
 #' @export
-addCoastline = function(basemap, coastline = NULL, land.col = 'lightgrey', lons = c(-180, 180), lats = c(-90, 90)) {
+addCoastline = function(basemap, coastline = NULL, land.col = NA, lons = c(-180, 180), lats = c(-90, 90)) {
   
   if (is.null(coastline)) {
     coastline = basemap$coastline
@@ -22,24 +22,18 @@ addCoastline = function(basemap, coastline = NULL, land.col = 'lightgrey', lons 
     coastline = eval(parse(text = coastline))
   }
   
-  
-  
   ## Coarse trim
-  field = expand.grid(x = seq(-1, 1, length.out = 25),
-                      y = seq(-basemap$aspect.ratio, basemap$aspect.ratio, length.out = 25)) * basemap$scale
-  
-  field = basemap$projection(field$x, field$y, lon0 = basemap$lon, lat0 = basemap$lat, inv = T)
-  
-  field.x = range(field$longitude, na.rm = T)
-  field.y = range(field$latitude, na.rm = T)
+  field = fieldOfView(basemap, n = 100) #lon0 centered!
   
   keep = rep(T, length(coastline$data))
   for (i in 1:length(coastline$data)) {
-    keep[i] = !all(coastline$data[[i]]$longitude < field.x[1] | coastline$data[[i]]$longitude > field.x[2]) | !all(coastline$data[[i]]$latitude < field.y[1] | coastline$data[[i]]$latitude > field.y[2])
+    keep[i] = !all(coastline$data[[i]]$longitude - basemap$lon < field$lon[1] | coastline$data[[i]]$longitude - basemap$lon > field$lon[2]) | !all(coastline$data[[i]]$latitude < field$lat[1] | coastline$data[[i]]$latitude > field$lat[2])
   }
-  coastline$data = coastline$data[which(keep)]
-  
-  
+  if (sum(keep) > 1) {
+    coastline$data = coastline$data[which(keep)]
+  } else {
+    message('No coasts selected')
+  }
   
   ## Project coastline (takes a while!)
   projected.coast = lapply(coastline$data,

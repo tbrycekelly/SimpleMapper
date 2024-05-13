@@ -1,7 +1,6 @@
 #' @title Add Axis to Map
 #' @author Thomas Bryce Kelly
-#' @importFrom graphics axis box lines par points polygon text
-#' @importFrom stats approx
+#' @importFrom graphics axis lines par
 #' @param basemap basemap such as that from plotBasemap()
 #' @param lons vector of longitude values (in degree easting) to overlayt
 #' @param lats vector of latitude values (in degree northing) to overlay
@@ -18,83 +17,100 @@ addAxis = function(basemap,
   
   par(las=1)
   usr = par()$usr
-  N = 5000 * 4e3 / diff(usr[1:2])
-  dx = diff(usr[1:2]) / N * 1e3
-  dy = diff(usr[3:4]) / N * 1e3
+  lons = standardize.longitude(lons - basemap$lon)
   
-  ## Add lon axes to sides 1 & 2
+  
+  ## Invert projection of borders
+  field = fieldOfView(basemap, 100)
+  N = 100
+  
   for (ll in lons) {
     tmp = basemap$projection(lon = rep(ll, N),
-                             lat = seq(min(lats), max(lats), length.out = N),
-                             lon0 = basemap$lon,
+                             lat = seq(field$lat[1], field$lat[2], length.out = N),
                              lat0 = basemap$lat)
-    k = !is.na(tmp$x) & !is.na(tmp$y) & tmp$x >= usr[1] - dx & tmp$x <= usr[2] + dx & tmp$y >= usr[3] - dy & tmp$y <= usr[4] + dy
     
-    if (sum(k) > 0) {
-      tmp$x[!k] = NA
-      tmp$y[!k] = NA
-  
-      ## split at breaks
-      split = splitBool(k)
-      if (length(split) > 0) {
-        for (i in 1:length(split)) {
-          ## Add lon lines
-          lines(x = tmp$x[split[[i]]], y = tmp$y[split[[i]]], col = col, ...)
-        
-          ## Attempt to Label
-          s = 'E'
-          if (ll < 0) { 
-            s = 'W'; ll = -ll 
-          }
-          
-          if (diff(range(sign(tmp$y[split[[i]]] - usr[3]))) > 0 & 1 %in% sides) { # TODO add angle
-            axis(1, at = approx(tmp$y[split[[i]]], tmp$x[split[[i]]], xout = usr[3], rule = 2)$y, labels = paste(ll, s))
-          }
-          if (diff(range(sign(tmp$y[split[[i]]] - usr[4]))) > 0 & 3 %in% sides) {
-            axis(3, at = approx(tmp$y[split[[i]]], tmp$x[split[[i]]], xout = usr[4], rule = 2)$y, labels = paste(ll, s))
-          }
-        }
+    tmp$x = tmp$x * 1.01 # Add 1% margin to FOV
+    tmp$y = tmp$y * 1.01 # Add 1% margin to FOV
+    
+    lines(tmp$x, tmp$y, col = col)
+    intersect = getIntersection(tmp$x, tmp$y)
+    
+    for (k in c(1:4)[1:4 %in% sides]) {
+      if (!is.na(intersect[[k]][1])) {
+        axis(k, at = intersect[[k]][((k+1) %% 2) + 1], labels = paste0(ll, 'E'))
       }
     }
   }
   
   for (ll in lats) {
-    tmp = basemap$projection(lon = seq(min(lons), max(lons), length.out = N),
+    tmp = basemap$projection(lon = seq(field$lon[1], field$lon[2], length.out = N),
                              lat = rep(ll, N),
-                             lon0 = basemap$lon,
                              lat0 = basemap$lat)
+    lines(tmp$x, tmp$y, col = col)
+    intersect = getIntersection(tmp$x, tmp$y)
     
-    k = !is.na(tmp$x) & !is.na(tmp$y) & tmp$x >= usr[1] - dx & tmp$x <= usr[2] + dx & tmp$y >= usr[3] - dy & tmp$y <= usr[4] + dy
-    
-    if (sum(k) > 0) {
-      tmp$x[!k] = NA
-      tmp$y[!k] = NA
-      
-      ## split at breaks
-      split = splitBool(k)
-      
-      if (length(split) > 0) {
-        for (i in 1:length(split)) {
-          ## Add lon lines
-          lines(x = tmp$x[split[[i]]], y = tmp$y[split[[i]]], col = col, ...)
-          
-          ## Attempt to Label
-          s = 'N'
-          if (ll < 0) { 
-            s = 'S'; ll = -ll 
-          }
-          
-          if (diff(range(sign(tmp$x[split[[i]]] - usr[1]))) > 0 & 2 %in% sides) {
-            axis(2, at = approx(tmp$x[split[[i]]], tmp$y[split[[i]]], xout = usr[2], rule = 2)$y, labels = paste(ll, s))
-          }
-          if (diff(range(sign(tmp$x[split[[i]]] - usr[2]))) > 0 & 4 %in% sides) {
-            axis(4, at = approx(tmp$x[split[[i]]], tmp$y[split[[i]]], xout = usr[4], rule = 2)$y, labels = paste(ll, s))
-          }
-        }
+    for (k in c(1:4)[1:4 %in% sides]) {
+      if (!is.na(intersect[[k]][1])) {
+        axis(k, at = intersect[[k]][((k+1) %% 2) + 1], labels = paste0(ll, 'N'))
       }
     }
   }
+  
   par(las = 0)
   
   basemap
+}
+
+
+
+#' @title Utility Func
+#' @author Thomas Bryce Kelly
+#' @importFrom stats approx
+#' @export
+getIntersection = function(x, y) {
+  usr = par()$usr
+  k = !is.na(x) & !is.na(y)
+  x = x[k]
+  y = y[k]
+  
+  res = list(
+    side1 = c(NA,NA),
+    side2 = c(NA,NA),
+    side3 = c(NA,NA),
+    side4 = c(NA,NA)
+  )
+  
+  if (sum(!is.na(x)) < 3 | sum(!is.na(y)) < 3) {
+    return(res)
+  }
+  
+  ## Side 1 and 3 (calculation in plotting space)
+  # Order points in increasing y axis, determine intersection point:
+  tmpx = x[order(y, na.last = T)]
+  tmpy = y[order(y, na.last = T)]
+  int = approx(tmpy, tmpx, xout = usr[3], method = 'constant')$y
+  if (!is.na(int) & any(tmpy >= usr[3]) & any(tmpy <= usr[3])) {
+    res$side1 = c(int, usr[3])
+  }
+  
+  int = approx(tmpy, tmpx, xout = usr[4], method = 'constant')$y
+  if (!is.na(int) & any(tmpy > usr[4]) & any(tmpy < usr[4])) {
+    res$side3 = c(int, usr[4])
+  }
+  
+  ## Side 2 and 4 (calculation in plotting space)
+  # Order points in increasing x axis, determine intersection point:
+  tmpx = x[order(x, na.last = T)]
+  tmpy = y[order(x, na.last = T)]
+  int = approx(tmpx, tmpy, xout = usr[1], method = 'constant')$y
+  if (!is.na(int) & any(tmpx > usr[1]) & any(tmpx < usr[1])) {
+    res$side2 = c(usr[1], int)
+  }
+  
+  int = approx(tmpx, tmpy, xout = usr[2], method = 'constant')$y
+  if (!is.na(int) & any(tmpx > usr[2]) & any(tmpx < usr[2])) {
+    res$side4 = c(usr[2], int)
+  }
+  
+  res
 }
