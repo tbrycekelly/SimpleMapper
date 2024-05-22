@@ -4,7 +4,7 @@
 \alias{addEEZ}
 \title{Add EEZ to map}
 \usage{
-addEEZ(basemap, eez, pattern = "*", ..., verbose = T)
+addEEZ(basemap, eez = NULL, pattern = "*", ..., verbose = T)
 }
 \arguments{
 \item{basemap}{a list object such as from plotBasemap()}

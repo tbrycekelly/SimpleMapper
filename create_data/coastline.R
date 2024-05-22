@@ -155,6 +155,30 @@ antarctica4$meta$size = object.size(antarctica4)
 antarctica5$meta$size = object.size(antarctica5)
 
 ## Save
+
+
+fix180 = function(coastline) {
+  index = c()
+  
+  for (i in 1:length(coastline)) {
+    if (any(coastline$data[[i]]$longitude == 180) | any(coastline$data[[i]]$longitude == -180)) {
+      index = c(index, i)
+    }
+  }
+  
+  if (length(index) == 2) {
+    coastline$data[[index[1]]] = rbind(coastline$data[[index[2]]][-nrow(coastline$data[[index[2]]]),], coastline$data[[index[1]]][-1,])
+    coastline$data[[index[2]]] = NULL
+  }
+  coastline
+}
+coastline = fix180(coastline1)
+coastline = fix180(coastline2)
+coastline = fix180(coastline3)
+
+map = plotBasemap(lon = -180, lat = 30, scale = 9e3, coastline = coastline)
+map = plotBasemap(lat = 90, scale = 9e3, coastline = coastline)
+
 save(coastline1, file = 'data/coastline1.rdata')
 save(coastline2, file = 'data/coastline2.rdata')
 save(coastline3, file = 'data/coastline3.rdata')

@@ -5,10 +5,10 @@
 \title{Make Map}
 \usage{
 plotBasemap(
-  coastline = NULL,
   lon = 0,
   lat = 0,
   scale = 1000,
+  coastline = NULL,
   projection = NULL,
   land.col = "lightgray",
   frame = T,

@@ -6,10 +6,10 @@
 #' @author Laura Whitmore
 #' @author Thomas Bryce Kelly
 #' @export
-plotBasemap = function (coastline = NULL,
-                      lon = 0,
+plotBasemap = function (lon = 0,
                       lat = 0,
                       scale = 1000,
+                      coastline = NULL,
                       projection = NULL,
                       land.col = 'lightgray',
                       frame = T,
