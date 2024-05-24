@@ -1,4 +1,8 @@
 #' Calculate Distance between Points (kilometers)
+#' @param lon1 longitude of first point
+#' @param lon2 longitude of second point
+#' @param lat1 latitude of first point
+#' @param lat2 latitude of second point
 #' @export
 distanceKM = function(lon1, lat1, lon2, lat2) {
   R = 6.371e3 # km

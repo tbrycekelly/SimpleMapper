@@ -7,6 +7,17 @@ Adds a scalebar onto a map}
 \usage{
 addScale(basemap, pos = 1, scale = NULL, col = "black", cex = 1)
 }
+\arguments{
+\item{basemap}{a basemap list object}
+
+\item{pos}{position 1:4 of the scale bar}
+
+\item{scale}{the length of the scale bar added (km)}
+
+\item{col}{color}
+
+\item{cex}{the size}
+}
 \description{
 Add Map Scalebar
 Adds a scalebar onto a map

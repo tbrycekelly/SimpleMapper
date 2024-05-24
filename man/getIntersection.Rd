@@ -6,6 +6,11 @@
 \usage{
 getIntersection(x, y)
 }
+\arguments{
+\item{x}{x coordinates of a line}
+
+\item{y}{y coordinates of a line}
+}
 \description{
 Utility Func
 }

@@ -4,7 +4,22 @@
 \alias{addText}
 \title{Add Map Text}
 \usage{
-addText(basemap, lon, lat, label, col = "black", pch = 1, cex = 1, ...)
+addText(basemap, lon, lat, label, col = "black", cex = 1, ...)
+}
+\arguments{
+\item{basemap}{a basemap list object}
+
+\item{lon}{a set of longitudes to draw a line between}
+
+\item{lat}{a set of latitudes to draw a lien between}
+
+\item{label}{text to be written}
+
+\item{col}{the color of the line to be drawn}
+
+\item{cex}{size}
+
+\item{...}{passed onto text.default()}
 }
 \description{
 Add Map Text

@@ -1,4 +1,9 @@
 #' Stereographic Projection
+#' @param lon longitude values to project (or x values when inverting)
+#' @param lat latitude values to project (or y values when inverting)
+#' @param lon0 center longitude value of the projection
+#' @param lat0 center latitude value of the projection
+#' @param inv a boolean flag to turn on/off projection inversion
 #' @export
 projectionStereographic = function(lon, lat, lon0 = 0, lat0 = 0, inv = F) {
   R = 6.371e3
@@ -31,6 +36,12 @@ projectionStereographic = function(lon, lat, lon0 = 0, lat0 = 0, inv = F) {
   
   x = k * cos(lat) * sin(lon)
   y = k * (cos(lat0) * sin(lat) - sin(lat0) * cos(lat) * cos(lon))
+  
+  ## Remove points within certain distance of antipod: 
+  # Assuming FOV is 160 degrees: +- 80 degrees 
+  #k = which((lon < -80/180*pi | lon > 80/180*pi) & (lat < -80/180*pi | lat > 80/180*pi))
+  #x[k] = NA
+  #y[k] = NA
   
   data.frame(x = x * R, y = y * R)
 }

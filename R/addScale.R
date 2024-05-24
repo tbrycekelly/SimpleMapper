@@ -1,6 +1,11 @@
 #' @title Add Map Scalebar
 #' Adds a scalebar onto a map
 #' @author Thomas Bryce Kelly
+#' @param basemap a basemap list object
+#' @param scale the length of the scale bar added (km)
+#' @param col color
+#' @param cex the size
+#' @param pos position 1:4 of the scale bar
 #' @export
 addScale = function(basemap,
                     pos = 1,

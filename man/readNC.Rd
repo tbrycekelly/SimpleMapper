@@ -8,6 +8,12 @@ readNC(file, var = NULL, test = F, verbose = T)
 }
 \arguments{
 \item{file}{The location of a .nc file.}
+
+\item{var}{a list of variable names to be loaded. Default NULL loads all variables.}
+
+\item{test}{boolean value to turn on testing.}
+
+\item{verbose}{boolean flag to turn on/off printing to screen.}
 }
 \description{
 Load NetCDF

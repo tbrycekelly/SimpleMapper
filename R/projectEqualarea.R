@@ -1,4 +1,9 @@
 #' Equal Area Projection
+#' @param lon longitude values to project (or x values when inverting)
+#' @param lat latitude values to project (or y values when inverting)
+#' @param lon0 center longitude value of the projection
+#' @param lat0 center latitude value of the projection
+#' @param inv a boolean flag to turn on/off projection inversion
 #' @export
 projectionEqualarea = function(lon, lat, lon0 = 0, lat0 = 0, inv = F) {
   R = 6.371e3

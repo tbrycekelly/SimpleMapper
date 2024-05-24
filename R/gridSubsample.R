@@ -1,5 +1,9 @@
 #' @title Calculate subsampled grid
 #' @author Thomas Bryce Kelly
+#' @param x the x positions in the grid
+#' @param y the y positions in the grid
+#' @param z the grid of values to be refined
+#' @param approx boolean flag to turn on fast-approximation method
 gridSubsample = function(x = NULL, y = NULL, z, approx = F) {
   if (is.null(dim(z))) {stop('grid.refinement: z must be an array object of two dimensions.')}
   dim = dim(z)

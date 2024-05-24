@@ -1,6 +1,9 @@
 #' @title Load NetCDF
 #' @import ncdf4
 #' @param file The location of a .nc file.
+#' @param var a list of variable names to be loaded. Default NULL loads all variables.
+#' @param test boolean value to turn on testing.
+#' @param verbose boolean flag to turn on/off printing to screen.
 #' @export
 readNC = function(file, var = NULL, test = F, verbose = T) {
   

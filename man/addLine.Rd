@@ -7,6 +7,8 @@
 addLine(basemap, lon, lat, col = "black", lty = 1, lwd = 1, ...)
 }
 \arguments{
+\item{basemap}{a basemap list object}
+
 \item{lon}{a set of longitudes to draw a line between}
 
 \item{lat}{a set of latitudes to draw a lien between}
@@ -16,6 +18,8 @@ addLine(basemap, lon, lat, col = "black", lty = 1, lwd = 1, ...)
 \item{lty}{the type of line to be drawn}
 
 \item{lwd}{the width of the line to be drawn}
+
+\item{...}{optional arguments passed in lines()}
 }
 \description{
 Add Map Line

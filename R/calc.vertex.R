@@ -1,6 +1,8 @@
 
 #' @title Calculate extended grid
 #' @author Thomas Bryce Kelly
+#' @param x x positiosn of the grid
+#' @param y y positions of the grid
 calc.vertex = function(x, y) {
   
   ## Diffs

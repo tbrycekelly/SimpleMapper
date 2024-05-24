@@ -6,6 +6,9 @@
 \usage{
 primeFactors(x)
 }
+\arguments{
+\item{x}{a number to test for prime factors}
+}
 \description{
 Retrieve prime decomposition
 }

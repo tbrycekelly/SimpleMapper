@@ -3,10 +3,7 @@
 #' @author Thomas Bryce Kelly
 #' @description Adds a coastline list to a map
 #' @param basemap a list generated from plotBasemap()
-#' @param coastline a specific list of coastline longitude/latitude to be used for plotting. If NULL (default) then will use the coastline specified in basemap.
-#' @param land.col a color value used to fill the coastline polygons
-#' @param lons an optional limit to the valid longitude values that will be used. Useful to eliminate some artefacts.
-#' @param lats an optional limit to the valid latitude values that will be used. Useful to eliminate some artefacts.
+#' @param n an integer used to set the resolution of the FOV grid.
 #' @export
 fieldOfView = function(basemap, n = 10) {
   usr = par('usr')

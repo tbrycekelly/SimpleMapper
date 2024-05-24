@@ -2,12 +2,19 @@
 % Please edit documentation in R/gridRefinement.R
 \name{gridRefinement}
 \alias{gridRefinement}
-\title{Calcuye extended grid}
+\title{Calculate extended grid}
 \usage{
 gridRefinement(x = NULL, y = NULL, z)
 }
+\arguments{
+\item{x}{the x positions in the grid}
+
+\item{y}{the y positions in the grid}
+
+\item{z}{the grid of values to be refined}
+}
 \description{
-Calcuye extended grid
+Calculate extended grid
 }
 \author{
 Thomas Bryce Kelly

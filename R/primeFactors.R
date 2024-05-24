@@ -1,5 +1,6 @@
 #' @title Retrieve prime decomposition
 #' @author Thomas Bryce Kelly
+#' @param x a number to test for prime factors
 #' @keywords prime
 primeFactors = function(x) {
   x = round(x)

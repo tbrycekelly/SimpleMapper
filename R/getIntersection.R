@@ -1,6 +1,8 @@
 #' @title Utility Func
 #' @author Thomas Bryce Kelly
 #' @importFrom stats approx
+#' @param x x coordinates of a line
+#' @param y y coordinates of a line
 #' @export
 getIntersection = function(x, y) {
   usr = par()$usr

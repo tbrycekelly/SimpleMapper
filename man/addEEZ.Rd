@@ -9,7 +9,11 @@ addEEZ(basemap, eez = NULL, pattern = "*", ..., verbose = T)
 \arguments{
 \item{basemap}{a list object such as from plotBasemap()}
 
-\item{eez}{a list of eez coordinates such as that provided herein as eez5.}
+\item{eez}{a list of eez coordinates such as that provided herein as eez2.}
+
+\item{pattern}{a string to search against the names contained within the eez data list.}
+
+\item{...}{optional arguments passed to addLine}
 
 \item{verbose}{a boolean flag to turn on/off displayed messages}
 }

@@ -17,9 +17,9 @@ addLatitude = function(basemap,
   usr = par()$usr
   
   if (is.null(lats)) {
-    if (map$scale > 2e3) {
+    if (basemap$scale > 2e3) {
       lats = seq(-90, 90, by = 30)
-    } else if (map$scale > 2e2) {
+    } else if (basemap$scale > 2e2) {
       lats = seq(-90, 90, by = 5)
     }
   }

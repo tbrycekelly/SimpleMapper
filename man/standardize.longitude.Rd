@@ -6,6 +6,9 @@
 \usage{
 standardize.longitude(lon)
 }
+\arguments{
+\item{lon}{longitude values to be standardize into [-180, +180]}
+}
 \description{
 Standardize longitude -180 - 180
 }

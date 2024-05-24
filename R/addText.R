@@ -1,12 +1,18 @@
 #' @title Add Map Text
 #' @author Laura Whitmore
+#' @param basemap a basemap list object
+#' @param lon a set of longitudes to draw a line between
+#' @param lat a set of latitudes to draw a lien between
+#' @param label text to be written
+#' @param col the color of the line to be drawn
+#' @param cex size
+#' @param ... passed onto text.default()
 #' @export
 addText = function(basemap,
                      lon,
                      lat,
                      label,
                      col = 'black',
-                     pch = 1,
                      cex = 1,
                      ...) {
   
@@ -16,7 +22,7 @@ addText = function(basemap,
                            lat0 = basemap$lat)
   
   ## Plot
-  text.default(tmp$x, tmp$y, labels = label, col = col, pch = pch, cex = cex, ...)
+  text.default(tmp$x, tmp$y, labels = label, col = col, cex = cex, ...)
   
   return(basemap)
 }

@@ -14,6 +14,21 @@ colorbar(
   height = 1
 )
 }
+\arguments{
+\item{pal}{a set of colors used for the colorbar}
+
+\item{zlim}{the numerical quantitues included in the color scale}
+
+\item{num_labels}{optional set of label values to use}
+
+\item{x}{the x position of the color bar}
+
+\item{y}{the y position of the color bar}
+
+\item{width}{the relative width of the colorbar}
+
+\item{height}{the relative height of the color bar}
+}
 \description{
 All Colorbar
 }

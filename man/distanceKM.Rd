@@ -6,6 +6,15 @@
 \usage{
 distanceKM(lon1, lat1, lon2, lat2)
 }
+\arguments{
+\item{lon1}{longitude of first point}
+
+\item{lat1}{latitude of first point}
+
+\item{lon2}{longitude of second point}
+
+\item{lat2}{latitude of second point}
+}
 \description{
 Calculate Distance between Points (kilometers)
 }

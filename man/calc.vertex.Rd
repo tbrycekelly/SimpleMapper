@@ -6,6 +6,11 @@
 \usage{
 calc.vertex(x, y)
 }
+\arguments{
+\item{x}{x positiosn of the grid}
+
+\item{y}{y positions of the grid}
+}
 \description{
 Calculate extended grid
 }

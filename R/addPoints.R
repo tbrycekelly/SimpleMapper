@@ -1,5 +1,12 @@
 #' @title Add Map Points
 #' @author Laura Whitmore
+#' @param basemap a basemap list object
+#' @param lon a set of longitudes to draw a line between
+#' @param lat a set of latitudes to draw a lien between
+#' @param col the color of the line to be drawn
+#' @param pch pch
+#' @param cex size
+#' @param ... passed onto points()
 #' @export
 addPoints = function(basemap,
                    lon,

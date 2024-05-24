@@ -1,8 +1,15 @@
 
 
 #' @title Make Map
-#' @param coast Should be the name of a coastline data object. A value of NULL sets the default cosatline to 'coastline2'.
 #' @param land.col A color string or value for the land polygon
+#' @param lon center longitude of map
+#' @param lat center latitude of map
+#' @param scale the visual scale of the map (in km)
+#' @param coastline a coastline data list object (optional)
+#' @param land.col color used for the fill of each land polygon
+#' @param projection a function used to project (and invert the projection)
+#' @param frame a boolean flag to redraw the graphic canvas' frame
+#' @param verbose a flag to turn on/off pritning to screen
 #' @author Laura Whitmore
 #' @author Thomas Bryce Kelly
 #' @export
@@ -10,7 +17,7 @@ plotBasemap = function (lon = 0,
                       lat = 0,
                       scale = 1000,
                       coastline = NULL,
-                      projection = NULL,
+                      projection = projectionEqualarea,
                       land.col = 'lightgray',
                       frame = T,
                       verbose = T) {
@@ -20,18 +27,14 @@ plotBasemap = function (lon = 0,
   ## Apply Defaults
   if (is.null(coastline)) { 
     if (scale < 1000) {
-      coastline = coastline4
+      coastline = SimpleMapper::coastline4
     } else if (scale < 3000) {
-      coastline = coastline3
+      coastline = SimpleMapper::coastline3
     } else if (scale < 10000) {
-      coastline = coastline2
+      coastline = SimpleMapper::coastline2
     } else {
-      coastline = coastline1
+      coastline = SimpleMapper::coastline1
     }
-  }
-  
-  if (is.null(projection)) {
-    projection = projectionEqualarea
   }
   
   aspect.ratio = par()$pin[1] / par()$pin[2] # ratio of width:height of the plotting area

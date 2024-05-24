@@ -1,11 +1,28 @@
+library(SimpleMapper)
+
 map = plotBasemap()
-map = addAxis(map, lons = seq(-180, 180, by = 5), lats = seq(-90, 90, by = 5), sides = 2)
+map = addLatitude(map)
+map = addLongitude(map)
 
-
-map = plotBasemap(scale = 5e3)
-map = addAxis(map, lons = seq(-180, 180, by = 5), lats = seq(-90, 90, by = 15))
+map = plotBasemap(scale = 5e3, land.col = 'black')
+map = addLatitude(map)
+map = addLongitude(map)
 
 
 map = plotBasemap(scale = 20e3, lat = 65.3)
-map = addAxis(map, lons = seq(-180, 180, by = 5), lats = seq(-90, 90, by = 15), sides = c(1,2))
-D
+map = addLatitude(map)
+map = addLongitude(map)
+map = addEEZ(map, eez = )
+
+
+
+map = plotBasemap(scale = 8e3, lat = -50.3, lon = -105)
+map = addLatitude(map)
+map = addLongitude(map)
+
+
+map = plotBasemap(scale = 3e3, lat = -50.3, lon = -105)
+map = plotBasemap(scale = 6e3, lat = 60, lon = -20, projection = projectionStereographic)
+map = plotBasemap(scale = 16e3, lat = 60, lon = 100, projection = projectionXY)
+map = addLatitude(map, sides = 2)
+map = addLongitude(map)

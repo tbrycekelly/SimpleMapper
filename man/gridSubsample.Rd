@@ -6,6 +6,15 @@
 \usage{
 gridSubsample(x = NULL, y = NULL, z, approx = F)
 }
+\arguments{
+\item{x}{the x positions in the grid}
+
+\item{y}{the y positions in the grid}
+
+\item{z}{the grid of values to be refined}
+
+\item{approx}{boolean flag to turn on fast-approximation method}
+}
 \description{
 Calculate subsampled grid
 }

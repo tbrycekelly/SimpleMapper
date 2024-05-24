@@ -9,16 +9,28 @@ plotBasemap(
   lat = 0,
   scale = 1000,
   coastline = NULL,
-  projection = NULL,
+  projection = projectionEqualarea,
   land.col = "lightgray",
   frame = T,
   verbose = T
 )
 }
 \arguments{
-\item{land.col}{A color string or value for the land polygon}
+\item{lon}{center longitude of map}
 
-\item{coast}{Should be the name of a coastline data object. A value of NULL sets the default cosatline to 'coastline2'.}
+\item{lat}{center latitude of map}
+
+\item{scale}{the visual scale of the map (in km)}
+
+\item{coastline}{a coastline data list object (optional)}
+
+\item{projection}{a function used to project (and invert the projection)}
+
+\item{land.col}{color used for the fill of each land polygon}
+
+\item{frame}{a boolean flag to redraw the graphic canvas' frame}
+
+\item{verbose}{a flag to turn on/off pritning to screen}
 }
 \description{
 Make Map

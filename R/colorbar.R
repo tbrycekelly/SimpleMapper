@@ -1,10 +1,18 @@
 #' @title All Colorbar
 #' @author Thomas Bryce Kelly
+#' @param pal a set of colors used for the colorbar
+#' @param zlim the numerical quantitues included in the color scale
+#' @param num_labels optional set of label values to use
+#' @param x the x position of the color bar
+#' @param y the y position of the color bar
+#' @param width the relative width of the colorbar
+#' @param height the relative height of the color bar
 #' @keywords Gridding
+#' @importFrom graphics par
 #' @export
 colorbar = function(pal, zlim, num_labels = NULL, x = NULL, y = NULL, width = 1, height = 1) {
   
-  usr = par()$usr
+  usr = graphics::par()$usr
   
   width = diff(usr[1:2]) * 0.05 * 0.5 * width
   height = diff(usr[3:4]) * 0.5 * height
