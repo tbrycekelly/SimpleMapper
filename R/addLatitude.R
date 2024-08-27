@@ -17,10 +17,16 @@ addLatitude = function(basemap,
   usr = par()$usr
   
   if (is.null(lats)) {
-    if (basemap$scale > 2e3) {
+    if (basemap$scale > 4e3) {
       lats = seq(-90, 90, by = 30)
-    } else if (basemap$scale > 2e2) {
+    } else if (basemap$scale > 300) {
       lats = seq(-90, 90, by = 5)
+    } else if (basemap$scale > 100) {
+      lats = seq(-90, 90, by = 1)
+    } else if (basemap$scale > 50) {
+      lats = seq(-90, 90, by = 0.5)
+    } else {
+      lats = seq(-90, 90, by = 0.1)
     }
   }
   

@@ -17,12 +17,16 @@ addLongitude = function(basemap,
   usr = par()$usr
   
   if (is.null(lons)) {
-    if (basemap$scale > 2e3) {
+    if (basemap$scale > 4e3) {
       lons = seq(-180, 180, by = 30)[-1]
-    } else if (basemap$scale > 2e2) {
+    } else if (basemap$scale > 300) {
       lons = seq(-180, 180, by = 5)[-1]
+    } else if (basemap$scale > 100){
+      lons = seq(-180, 180, by = 1)[-1]
+    } else if (basemap$scale > 50){
+      lons = seq(-180, 180, by = 0.5)[-1]
     } else {
-      
+      lons = seq(-180, 180, by = 0.1)[-1]
     }
   }
   

@@ -26,3 +26,9 @@ map = plotBasemap(scale = 6e3, lat = 60, lon = -20, projection = projectionStere
 map = plotBasemap(scale = 16e3, lat = 60, lon = 100, projection = projectionXY)
 map = addLatitude(map, sides = 2)
 map = addLongitude(map)
+
+
+
+map = plotBasemap(scale = 150, lat = 25.3, lon = -110)
+map = addLatitude(map)
+map = addLongitude(map)

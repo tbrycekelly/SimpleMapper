@@ -1,0 +1,117 @@
+---
+title: "Using SimpleMapper"
+author: "Thomas Bryce Kelly"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using SimpleMapper}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+SimpleMapper is an R pacakge that makes plotting publication quality maps and figures as easy as possible. This does not require any background in GIS or other specializations. Instead, this is mapping for when you need it to "just work". Try out the examples below and please let me know if you have any suggestions or wish-list items.
+
+-Thomas Bryce Kelly <tbkelly@alaska.edu>
+
+
+# Getting started
+
+To get started, first make sure you have either the CRAN version or github version of SimpleMapper installed:
+
+```{r eval=FALSE, include=TRUE}
+package.install('SimpleMapper)
+
+# OR via github (latest and greatest version)
+devtools::install_github('tbrycekelly/SimpleMapper')
+```
+
+With that, you can load the package now:
+
+```{r}
+library(SimpleMapper)
+```
+
+Let's make our first map then.
+
+```{r}
+map = plotBasemap(lon = -120, lat = 30, scale = 2e3)
+```
+
+Great, here we set `lon=-120` and `lat=30` as the center of our map. The final argument was for `scale`, which is the approximate size of the map in kilometers. For example, we can zoom out by increasing the scale, or zoom in by decreasing it.
+
+
+```{r}
+map = plotBasemap(lon = -120, lat = 30, scale = 3e3)
+map = plotBasemap(lon = -120, lat = 30, scale = 1e3)
+```
+
+The coastline being used is built-in to SimpleMapper and is automatically selected based on the scale of the map being rendered. This can be manually overridden by passing `coastline` as one of the 4 levels of coastlines from coastline1 (coarse) to coastline4 (fine).  A few more options that may be useful are shown in the maps below.
+
+```{r}
+map = plotBasemap(lon = -120, lat = 30, scale = 2e3, land.col = 'gold')
+map = plotBasemap(lon = -120, lat = 30, scale = 2e3, frame = F)
+map = plotBasemap(lon = -120, lat = 30, scale = 2e3, coastline = coastline1)
+map = plotBasemap(lon = -120, lat = 30, scale = 2e3, coastline = coastline4)
+
+```
+
+
+To finish off these maps, here are a few more of the "usual" requirements for a good map.
+
+
+```{r}
+map = plotBasemap(lon = -120, lat = 30, scale = 2e3)
+map = addLine(map, lon = c(-135, -122), lat = c(34, 32), col = 'red', lwd = 3)
+map = addPoints(map, lon = -130, lat = 26, pch = 'Q', cex = 2)
+map = addLatitude(map)
+map = addLongitude(map)
+map = addScale(map)
+```
+
+So with this, you can now
+
+1. make a map
+2. add a line
+3. add points or other symbles
+4. add latitude and longitude gradicules
+5. add a scalebar
+
+Overall, I am pretty happy with this! But here are a few more capabilities you have (warning, advanced features!).
+
+
+```{r}
+## Create (or load) an array of data to overlay on the map
+x = seq(-130, -110, by = 0.5)
+y = seq(25, 35, by = 0.5)
+z = array(cumsum(rnorm(length(x) * length(y))), dim = c(length(x), length(y)))
+
+map = plotBasemap(lon = -120, lat = 30, scale = 2e3, land.col = '#00000050')
+map = addLatitude(map)
+map = addLongitude(map)
+map = addLayer(map, lon = x, lat = y, z = z)
+```
+The default color palette is less than inspiring (i.e. greyscale), but it will use whatever set of colors you pass it, so I enjoy using the `pals` package to do just that.
+
+
+```{r}
+map = plotBasemap(lon = -120, lat = 30, scale = 2e3, land.col = '#00000050')
+map = addLatitude(map)
+map = addLongitude(map, lons = seq(-160, -80, by = 10))
+map = addLayer(map, lon = x, lat = y, z = z, pal = pals::ocean.amp(8))
+
+
+map = plotBasemap(lon = -120, lat = 30, scale = 2e3, land.col = '#00000050')
+map = addLatitude(map)
+map = addLongitude(map, lons = seq(-160, -80, by = 10))
+map = addLayer(map, lon = x, lat = y, z = z, pal = pals::coolwarm(12), zlim = c(-10,10))
+
+
+
+```
