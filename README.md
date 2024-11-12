@@ -3,12 +3,62 @@
 
 Inspiration for this project originated back in 2017 when we were first exploring options for mapping and visualizing spatial data in the R universe. What we found, and largely still find, was an ecosystem of GIS-centric libraries with far more horse-power than we needed.
 
-Power is great, except when it comes with a learning curve and inflexibility. Finding the then current libraries unable to reliably spit out a map of our data points with clear cause-and-effect structures (e.g., do this to add an arrow or do this to add a label), we decided to build our own library suited to the task of making maps simpler.
+Power is great, except when it comes with a learning curve and inflexibility. Finding the then-current libraries were unable to reliably spit out a map of our data points with clear cause-and-effect structures (e.g., do this to add an arrow or do this to add a label), we decided to build our own library suited to the task of making maps simpler.
 
 #### Getting Started
 
+The easiest way to install the pacakge (until I get around to adding this to CRAN) is via _devtools_.
+
+If you don't have _devtools_, then install that first via CRAN:
+
+  install.pacakges('devtools')
 
 
+Now you can use _devtools_ to install R packages from Github, such as _SimpleMapper_:
+
+  devtools::install_github('tbrycekelly/SimpleMapper')
+
+All done! Now _SimpleMapper_ can be loaded just like any other package: `library(SimpleMpper)`.
+
+
+#### Examples
+
+<img src="images/Map1.png">
+
+  map = plotBasemap()
+  map = addLatitude(map)
+  map = addLongitude(map)
+
+<img src="images/Map2.png">
+
+  map = plotBasemap(scale = 5e3, land.col = 'black')
+  map = addLatitude(map)
+  map = addLongitude(map)
+
+<img src="images/Map2_eez.png">
+
+  map = plotBasemap(scale = 20e3, lat = 65.3)
+  map = addLatitude(map)
+  map = addLongitude(map)
+  map = addEEZ(map, col = 'red')
+
+<img src="images/Map3.png">
+
+  map = plotBasemap(scale = 250, lat = 25.3, lon = -110)
+  map = addLatitude(map)
+  map = addLongitude(map)
+
+<img src="images/Map4Stereo.png">
+
+  map = plotBasemap(scale = 6e3, lat = 60, lon = 100, projection = projectionStereographic)
+  map = addLatitude(map, sides = 2)
+  map = addLongitude(map)
+
+<img src="images/Map4XY.png">
+
+  map = plotBasemap(scale = 16e3, lat = 60, lon = 100, projection = projectionXY)
+  map = addLatitude(map, sides = 2)
+  map = addLongitude(map)
 
 #### Customizable Projections
 
