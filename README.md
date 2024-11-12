@@ -23,6 +23,8 @@ All done! Now _SimpleMapper_ can be loaded just like any other package: `library
 
 #### Examples
 
+__Plain Map__. Here is a basic map with a default center of `longitude = 0`, `latitude = 0`.
+
 <img src="images/Map1.png">
 
 ```r
@@ -31,6 +33,8 @@ map = addLatitude(map)
 map = addLongitude(map)
 ```
 
+__Plain Map__. You can rescale a map (field of view) to any distance in kilometers. The land color is also specified.
+
 <img src="images/Map2.png">
 
 ```r
@@ -38,6 +42,8 @@ map = plotBasemap(scale = 5e3, land.col = 'black')
 map = addLatitude(map)
 map = addLongitude(map)
 ```
+
+__Advanced Map__. This map incldues EEZ boundaries in red.
 
 <img src="images/Map2_eez.png">
 
@@ -48,6 +54,8 @@ map = addLongitude(map)
 map = addEEZ(map, col = 'red')
 ```
 
+__Aspect Ratio__. The aspect ratio of a map is set by the current device canvas size. 
+
 <img src="images/Map3.png">
 
 ```r
@@ -56,15 +64,20 @@ map = addLatitude(map)
 map = addLongitude(map)
 ```
 
+__Sterographic Map__. Any projection _can_ be used with _SimpleMapper_. Included proejections  are `projectionEqualarea` (_default_), `projectionSterographic`, and `proejctionXY`.
+
+<p align="left">
 <img src="images/Map4Stereo.png">
+</p>
+<p align="right">
+<img src="images/Map4XY.png">
+</p>
 
 ```r
 map = plotBasemap(scale = 6e3, lat = 60, lon = 100, projection = projectionStereographic)
 map = addLatitude(map, sides = 2)
 map = addLongitude(map)
 ```
-
-<img src="images/Map4XY.png">
 
 ```r
 map = plotBasemap(scale = 16e3, lat = 60, lon = 100, projection = projectionXY)
