@@ -25,40 +25,52 @@ All done! Now _SimpleMapper_ can be loaded just like any other package: `library
 
 <img src="images/Map1.png">
 
-  map = plotBasemap()
-  map = addLatitude(map)
-  map = addLongitude(map)
+```r
+map = plotBasemap()
+map = addLatitude(map)
+map = addLongitude(map)
+```
 
 <img src="images/Map2.png">
 
-  map = plotBasemap(scale = 5e3, land.col = 'black')
-  map = addLatitude(map)
-  map = addLongitude(map)
+```r
+map = plotBasemap(scale = 5e3, land.col = 'black')
+map = addLatitude(map)
+map = addLongitude(map)
+```
 
 <img src="images/Map2_eez.png">
 
-  map = plotBasemap(scale = 20e3, lat = 65.3)
-  map = addLatitude(map)
-  map = addLongitude(map)
-  map = addEEZ(map, col = 'red')
+```r
+map = plotBasemap(scale = 20e3, lat = 65.3)
+map = addLatitude(map)
+map = addLongitude(map)
+map = addEEZ(map, col = 'red')
+```
 
 <img src="images/Map3.png">
 
-  map = plotBasemap(scale = 250, lat = 25.3, lon = -110)
-  map = addLatitude(map)
-  map = addLongitude(map)
+```r
+map = plotBasemap(scale = 250, lat = 25.3, lon = -110)
+map = addLatitude(map)
+map = addLongitude(map)
+```
 
 <img src="images/Map4Stereo.png">
 
-  map = plotBasemap(scale = 6e3, lat = 60, lon = 100, projection = projectionStereographic)
-  map = addLatitude(map, sides = 2)
-  map = addLongitude(map)
+```r
+map = plotBasemap(scale = 6e3, lat = 60, lon = 100, projection = projectionStereographic)
+map = addLatitude(map, sides = 2)
+map = addLongitude(map)
+```
 
 <img src="images/Map4XY.png">
 
-  map = plotBasemap(scale = 16e3, lat = 60, lon = 100, projection = projectionXY)
-  map = addLatitude(map, sides = 2)
-  map = addLongitude(map)
+```r
+map = plotBasemap(scale = 16e3, lat = 60, lon = 100, projection = projectionXY)
+map = addLatitude(map, sides = 2)
+map = addLongitude(map)
+```
 
 #### Customizable Projections
 
