@@ -5,6 +5,8 @@ Inspiration for this project originated back in 2017 when we were first explorin
 
 Power is great, except when it comes with a learning curve and inflexibility. Finding the then-current libraries were unable to reliably spit out a map of our data points with clear cause-and-effect structures (e.g., do this to add an arrow or do this to add a label), we decided to build our own library suited to the task of making maps simpler.
 
+If you like this, then I'd recommend checking out an accessory package I've written for adding bathymetry (or topography) to maps: [SimpleBathy](https://github.com/tbrycekelly/SimpleBathy).
+
 #### Getting Started
 
 The easiest way to install the pacakge (until I get around to adding this to CRAN) is via _devtools_.
