@@ -11,15 +11,19 @@ The easiest way to install the pacakge (until I get around to adding this to CRA
 
 If you don't have _devtools_, then install that first via CRAN:
 
-  install.pacakges('devtools')
-
+```r
+install.pacakges('devtools')
+```
 
 Now you can use _devtools_ to install R packages from Github, such as _SimpleMapper_:
 
-  devtools::install_github('tbrycekelly/SimpleMapper')
+```r
+devtools::install_github('tbrycekelly/SimpleMapper')
+```
 
 All done! Now _SimpleMapper_ can be loaded just like any other package: `library(SimpleMpper)`.
 
+---
 
 #### Examples
 
@@ -82,6 +86,8 @@ map = plotBasemap(scale = 16e3, lat = 60, lon = 100, projection = projectionXY)
 map = addLatitude(map, sides = 2)
 map = addLongitude(map)
 ```
+
+---
 
 #### Customizable Projections
 
