@@ -12,7 +12,7 @@ map = addLongitude(map)
 map = plotBasemap(scale = 20e3, lat = 65.3)
 map = addLatitude(map)
 map = addLongitude(map)
-map = addEEZ(map, eez = )
+map = addEEZ(map, col = 'red')
 
 
 
@@ -29,6 +29,6 @@ map = addLongitude(map)
 
 
 
-map = plotBasemap(scale = 150, lat = 25.3, lon = -110)
+map = plotBasemap(scale = 250, lat = 25.3, lon = -110)
 map = addLatitude(map)
 map = addLongitude(map)
