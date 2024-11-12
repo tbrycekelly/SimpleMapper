@@ -66,12 +66,8 @@ map = addLongitude(map)
 
 __Sterographic Map__. Any projection _can_ be used with _SimpleMapper_. Included proejections  are `projectionEqualarea` (_default_), `projectionSterographic`, and `proejctionXY`.
 
-<p align="left">
 <img src="images/Map4Stereo.png">
-</p>
-<p align="right">
 <img src="images/Map4XY.png">
-</p>
 
 ```r
 map = plotBasemap(scale = 6e3, lat = 60, lon = 100, projection = projectionStereographic)
