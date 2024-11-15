@@ -5,11 +5,11 @@ Inspiration for this project originated back in 2017 when we were first explorin
 
 Power is great, except when it comes with a learning curve and inflexibility. Finding the then-current libraries were unable to reliably spit out a map of our data points with clear cause-and-effect structures (e.g., do this to add an arrow or do this to add a label), we decided to build our own library suited to the task of making maps simpler.
 
-If you like this, then I'd recommend checking out an accessory package I've written for adding bathymetry (or topography) to maps: [SimpleBathy](https://github.com/tbrycekelly/SimpleBathy).
+If you like this, then I'd recommend checking out an accessory package I've written for adding bathymetry (or topography) to maps: [SimpleBathy](https://github.com/tbrycekelly/SimpleBathy). You may also be intersted in color palettes suitable for scientific data presentation: [batlow](https://github.com/tbrycekelly/batlow).
 
 #### Getting Started
 
-The easiest way to install the pacakge (until I get around to adding this to CRAN) is via _devtools_.
+The easiest way to install the package (until I get around to adding this to CRAN) is via _devtools_.
 
 If you don't have _devtools_, then install that first via CRAN:
 
@@ -23,7 +23,7 @@ Now you can use _devtools_ to install R packages from Github, such as _SimpleMap
 devtools::install_github('tbrycekelly/SimpleMapper')
 ```
 
-All done! Now _SimpleMapper_ can be loaded just like any other package: `library(SimpleMpper)`.
+All done! Now _SimpleMapper_ can be loaded just like any other package: `library(SimpleMapper)`.
 
 ---
 
