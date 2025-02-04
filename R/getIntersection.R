@@ -25,12 +25,12 @@ getIntersection = function(x, y) {
   # Order points in increasing y axis, determine intersection point:
   tmpx = x[order(y, na.last = T)]
   tmpy = y[order(y, na.last = T)]
-  int = approx(tmpy, tmpx, xout = usr[3], method = 'constant')$y
+  int = approx(tmpy, tmpx, xout = usr[3], method = 'constant', ties = min)$y
   if (!is.na(int) & any(tmpy >= usr[3]) & any(tmpy <= usr[3])) {
     res$side1 = c(int, usr[3])
   }
   
-  int = approx(tmpy, tmpx, xout = usr[4], method = 'constant')$y
+  int = approx(tmpy, tmpx, xout = usr[4], method = 'constant', ties = min)$y
   if (!is.na(int) & any(tmpy > usr[4]) & any(tmpy < usr[4])) {
     res$side3 = c(int, usr[4])
   }
@@ -39,12 +39,12 @@ getIntersection = function(x, y) {
   # Order points in increasing x axis, determine intersection point:
   tmpx = x[order(x, na.last = T)]
   tmpy = y[order(x, na.last = T)]
-  int = approx(tmpx, tmpy, xout = usr[1], method = 'constant')$y
+  int = approx(tmpx, tmpy, xout = usr[1], method = 'constant', ties = min)$y
   if (!is.na(int) & any(tmpx > usr[1]) & any(tmpx < usr[1])) {
     res$side2 = c(usr[1], int)
   }
   
-  int = approx(tmpx, tmpy, xout = usr[2], method = 'constant')$y
+  int = approx(tmpx, tmpy, xout = usr[2], method = 'constant', ties = min)$y
   if (!is.na(int) & any(tmpx > usr[2]) & any(tmpx < usr[2])) {
     res$side4 = c(usr[2], int)
   }

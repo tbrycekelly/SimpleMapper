@@ -43,5 +43,11 @@ addScale = function(basemap,
   points(x = c(x.origin, x.origin - sign*scale), y = rep(y.origin,2), pch = '|', cex = cex, col = col)
   text(x.origin - sign * scale * 0.5, y = y.origin, pos = 3, paste0(scale, ' km'), col = col, cex = cex)
   
-  basemap
+  basemap$history[[length(basemap$history) + 1]] = list(func = 'addScale',
+                                                        arguments = list(
+                                                          pos = pos, scale = scale, col = col, cex = cex
+                                                        )
+  )
+  
+  invisible(basemap)
 }

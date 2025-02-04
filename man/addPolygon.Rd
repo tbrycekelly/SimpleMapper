@@ -15,6 +15,8 @@ addPolygon(basemap, lon, lat, col = "black", border = T, lty = 1, lwd = 1, ...)
 
 \item{col}{the color of the line to be drawn}
 
+\item{border}{boolean to turn on/off polygon border}
+
 \item{lty}{the type of line to be drawn}
 
 \item{lwd}{the width of the line to be drawn}

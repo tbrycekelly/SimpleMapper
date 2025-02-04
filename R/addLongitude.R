@@ -59,7 +59,12 @@ addLongitude = function(basemap,
   }
   
   par(las = 0)
+  basemap$history[[length(basemap$history) + 1]] = list(func = 'addLongitude',
+                                                      arguments = list(
+                                                        lons = lons, sides = sides, col = col, ... = ...
+                                                        )
+                                                      )
   
-  basemap
+  invisible(basemap)
 }
 

@@ -23,6 +23,11 @@ addText = function(basemap,
   
   ## Plot
   text.default(tmp$x, tmp$y, labels = label, col = col, cex = cex, ...)
+  basemap$history[[length(basemap$history) + 1]] = list(func = 'addText',
+                                                        arguments = list(
+                                                          lon = lon, lat = lat, label = label, col = col, cex = cex, ... = ...
+                                                        )
+  )
   
-  return(basemap)
+  invisible(basemap)
 }

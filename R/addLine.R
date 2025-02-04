@@ -26,5 +26,11 @@ addLine = function(basemap,
   ## Plot
   graphics::lines(tmp$x, tmp$y, col = col, lty = lty, lwd = lwd, ...)
   
-  basemap
+  basemap$history[[length(basemap$history) + 1]] = list(func = 'addLine',
+                                                        arguments = list(
+                                                          lon = lon, lat = lat, col = col, lty = lty, lwd = lwd, ... = ...
+                                                        )
+  )
+  
+  invisible(basemap)
 }

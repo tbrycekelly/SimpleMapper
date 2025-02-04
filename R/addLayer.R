@@ -24,6 +24,12 @@ addLayer = function(basemap,
                          refine = 0,
                          verbose = T) {
   
+  basemap$history[[length(basemap$history) + 1]] = list(func = 'addLayer',
+                                                        arguments = list(
+                                                          lon = lon, lat = lat, z = z, zlim = zlim, ztrim = ztrim, pal = pal, trim = trim, refine = refine, verbose = verbose
+                                                        )
+  )
+  
   # TODO Orient lon based on center of map to naturally deal with antimeridian situations.
   ## Misc corrections
   lon = as.array(lon)
@@ -132,6 +138,6 @@ addLayer = function(basemap,
   
   ## Extras
   if (verbose) { message(' Final stats: \tN.low: ', sum(z < zlim[1]), '\tN.high: ', sum(z > zlim[2]), '\tN: ', length(z)) }
-
-  basemap
+  
+  invisible(basemap)
 }

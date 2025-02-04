@@ -1,7 +1,7 @@
 Package: SimpleMapper
 Type: Package
 Title: A Simple Alternative for Mapping Data in R
-Version: 1.0
+Version: 1.1
 Author: Thomas Kelly <tbkelly@alaska.edu> and Laura Whitmore <lmwhitmore@alaska.edu>
 Maintainer: Thomas Kelly <tbkelly@alaska.edu>
 Description: An R package useful for large scale mapping of datasets that do not require (GIS)
@@ -11,7 +11,7 @@ Encoding: UTF-8
 License: MIT License
 LazyData: true
 LazyDataCompression: gzip
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Imports:
   ncdf4
 Suggests: 

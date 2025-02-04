@@ -24,5 +24,11 @@ addPoints = function(basemap,
   ## Plot
   points(tmp$x, tmp$y, col = col, pch = pch, cex = cex, ...)
   
-  return(basemap)
+  basemap$history[[length(basemap$history) + 1]] = list(func = 'addPoints',
+                                                        arguments = list(
+                                                          lon = lon, lat = lat, col = col, pch = pch, cex = cex, ... = ...
+                                                        )
+  )
+  
+  invisible(basemap)
 }

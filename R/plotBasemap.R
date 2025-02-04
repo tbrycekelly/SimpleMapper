@@ -66,7 +66,10 @@ plotBasemap = function (lon = 0,
              scale = scale,
              aspect.ratio = aspect.ratio,
              projection = projection,
-             land.col = land.col)
+             land.col = land.col,
+             frame = frame,
+             history = list()
+             )
   
   coast = addCoastline(
     basemap = basemap,
@@ -75,5 +78,5 @@ plotBasemap = function (lon = 0,
   
   if (frame) { box()}
   
-  basemap
+  invisible(basemap)
 }

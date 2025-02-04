@@ -20,6 +20,12 @@ addPolygon = function(basemap,
                    lwd = 1,
                    ...) {
   
+  basemap$history[[length(basemap$history) + 1]] = list(func = 'addPolygon',
+                                                        arguments = list(
+                                                          lon = lon, lat = lat, col = col, border = border, lty = lty, lwd = lwd, ... = ...
+                                                        )
+  )
+  
   tmp = basemap$projection(lon = lon,
                            lat = lat,
                            lon0 = basemap$lon,
@@ -28,5 +34,5 @@ addPolygon = function(basemap,
   ## Plot
   graphics::polygon(tmp$x, tmp$y, col = col, border = border, lty = lty, lwd = lwd, ...)
   
-  basemap
+  invisible(basemap)
 }

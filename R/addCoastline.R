@@ -54,5 +54,11 @@ addCoastline = function(basemap, coastline = NULL, land.col = NA, lons = c(-180,
     polygon(projected.coast[[i]]$x, projected.coast[[i]]$y, col = land.col)
   }
   
-  basemap
+  basemap$history[[length(basemap$history) + 1]] = list(func = 'addCoastline',
+                                                        arguments = list(
+                                                          coastline = coastline, land.col = land.col, lons = lons, lats = lats
+                                                        )
+  )
+  
+  invisible(basemap)
 }
