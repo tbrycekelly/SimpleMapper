@@ -13,6 +13,9 @@ addLatitude = function(basemap,
                        col = '#00000030',
                        ...) {
   
+  basemap$history[[length(basemap$history) + 1]] = list(func = 'addLatitude',
+                                                      arguments = list(lats = lats, sides = sides, col = col, ... = ...))
+  
   par(las=1)
   usr = par()$usr
   
@@ -49,8 +52,6 @@ addLatitude = function(basemap,
   }
   
   par(las = 0)
-  basemap$history[length(basemap$history) + 1] = list(func = 'addLatitude',
-                                                      arguments = list(lats = lats, sides = sides, col = col, ... = ...))
   
   invisible(basemap)
 }

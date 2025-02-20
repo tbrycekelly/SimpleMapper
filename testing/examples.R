@@ -16,7 +16,7 @@ map = addEEZ(map, col = 'red')
 
 
 
-map = plotBasemap(scale = 8e3, lat = -50.3, lon = -105)
+map = plotBasemap(scale = 8e3, lat = -45.3, lon = -105)
 map = addLatitude(map)
 map = addLongitude(map)
 

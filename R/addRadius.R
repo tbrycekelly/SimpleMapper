@@ -1,7 +1,9 @@
 #' Add reference radius to a map
+#' @param basemap a list object generated from plotBasemap
 #' @param lon longitude 
 #' @param lat latitude 
 #' @param radius radius of circle in km
+#' @param ... additional arguments to be passed into addLine
 #' @export
 addRadius = function(basemap, lon, lat, radius, ...) {
   

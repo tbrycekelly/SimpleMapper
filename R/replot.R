@@ -1,3 +1,6 @@
+#' Replot a previous map
+#' @description A simple function that allows multiple plotting commands to be replayed from a previously rendered map.
+#' @param basemap a list structure generated via plotBasemap()
 #' @export
 replot = function(basemap) {
   
@@ -11,6 +14,6 @@ replot = function(basemap) {
   )
   
   for (i in 1:length(basemap$history)) {
-    do.call(eval(map$history[[i]]$func), args = c(basemap = substitute(map), map$history[[i]]$arguments))
+    do.call(eval(basemap$history[[i]]$func), args = c(basemap = substitute(basemap), basemap$history[[i]]$arguments))
   }
 }

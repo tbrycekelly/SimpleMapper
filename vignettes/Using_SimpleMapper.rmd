@@ -14,16 +14,17 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+knitr::opts_chunk$set(fig.width=6, fig.height=4) 
 ```
 
-SimpleMapper is an R pacakge that makes plotting publication quality maps and figures as easy as possible. This does not require any background in GIS or other specializations. Instead, this is mapping for when you need it to "just work". Try out the examples below and please let me know if you have any suggestions or wish-list items.
+_SimpleMapper_ is an R package that makes plotting publication quality maps and figures as easy as possible. This does not require any background in GIS or other specializations. Instead, this is mapping for when you need it to "just work". Try out the examples below and please let me know if you have any suggestions or wish-list items.
 
 -Thomas Bryce Kelly <tbkelly@alaska.edu>
 
 
 # Getting started
 
-To get started, first make sure you have either the CRAN version or github version of SimpleMapper installed:
+To get started, first make sure you have either the CRAN version or github version of _SimpleMapper_ installed:
 
 ```{r eval=FALSE, include=TRUE}
 package.install('SimpleMapper)
@@ -83,6 +84,15 @@ So with this, you can now
 4. add latitude and longitude gradicules
 5. add a scalebar
 
+
+Since the history of the commands are maintained and recorded, you can replay them to duplicate a map easily:
+
+```{r}
+replot(map)
+```
+
+This is especially useful when setting up a detailed map that you then want to add different final pieces to.
+
 Overall, I am pretty happy with this! But here are a few more capabilities you have (warning, advanced features!).
 
 
@@ -111,7 +121,5 @@ map = plotBasemap(lon = -120, lat = 30, scale = 2e3, land.col = '#00000050')
 map = addLatitude(map)
 map = addLongitude(map, lons = seq(-160, -80, by = 10))
 map = addLayer(map, lon = x, lat = y, z = z, pal = pals::coolwarm(12), zlim = c(-10,10))
-
-
 
 ```

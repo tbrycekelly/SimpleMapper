@@ -8,12 +8,11 @@ Description: An R package useful for large scale mapping of datasets that do not
     specific methods or accuracy. This package is designed to be simple and easy to adapt/use
     for your projects and visualization needs.
 Encoding: UTF-8
-License: MIT License
+License: MIT + file LICENSE
 LazyData: true
 LazyDataCompression: gzip
 RoxygenNote: 7.3.2
 Imports:
-  ncdf4
 Suggests: 
     knitr,
     rmarkdown,

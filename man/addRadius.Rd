@@ -7,11 +7,15 @@
 addRadius(basemap, lon, lat, radius, ...)
 }
 \arguments{
+\item{basemap}{a list object generated from plotBasemap}
+
 \item{lon}{longitude}
 
 \item{lat}{latitude}
 
 \item{radius}{radius of circle in km}
+
+\item{...}{additional arguments to be passed into addLine}
 }
 \description{
 Add reference radius to a map
