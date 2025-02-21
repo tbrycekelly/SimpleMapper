@@ -2,9 +2,8 @@ Package: SimpleMapper
 Type: Package
 Title: A Simple Alternative for Mapping Data in R
 Version: 1.1
-Author: Thomas Kelly <tbkelly@alaska.edu> and Laura Whitmore <lmwhitmore@alaska.edu>
 Maintainer: Thomas Kelly <tbkelly@alaska.edu>
-Description: An R package useful for large scale mapping of datasets that do not require (GIS)
+Description: An R package useful for large scale mapping of datasets that do not require
     specific methods or accuracy. This package is designed to be simple and easy to adapt/use
     for your projects and visualization needs.
 Encoding: UTF-8
@@ -18,3 +17,4 @@ Suggests:
     rmarkdown,
     pals
 VignetteBuilder: knitr
+Authors@R: c(person(given = "Thomas", family = "Kelly", role = c("aut", "cre"), email = "tbkelly@alaska.edu"), person(given = "Laura", family = "Whitmore", role = "aut", email = "lmwhitmore@alaska.edu"))
