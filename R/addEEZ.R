@@ -20,7 +20,7 @@ addEEZ = function(basemap, eez = NULL, pattern = '*', ..., verbose = T) { #TODO 
       message(' (', i,'/', length(k),') Adding EEZ line ', names(eez)[k[i]], ' to map...')
     }
     for (j in 1:length(eez[[k[i]]])) {
-      basemap = addLine(basemap, lon = eez[[k[i]]][[j]]$lon, lat = eez[[k[i]]][[j]]$lat, ...)
+      addLine(basemap, lon = eez[[k[i]]][[j]]$lon, lat = eez[[k[i]]][[j]]$lat, ...)
     }
   }
   
